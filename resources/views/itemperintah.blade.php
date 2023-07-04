@@ -191,8 +191,8 @@
                   <tr>
                     <th scope="col">ID</th>
                     <th scope="col">Item Perintah</th>
-                    <th scope="col">Kategori Umur</th>
                     <th scope="col">Aspek Perkembangan</th>
+                    <th scope="col">Kategori Umur</th>
                   </tr>
                   @foreach ($itemperintah as $i)
                 </thead>
@@ -200,8 +200,8 @@
                   <tr>
                     <td>{{$i -> id }}</td>
                     <td>{{$i -> perintah }}</td>
-                    <td>{{$i->kategoriumur->kategori_umur }}</td>
                     <td>{{$i -> aspekperkembangan->nama_aspek }}</td>
+                    <td>{{$i->kategoriumur->kategori_umur }}</td>
                   
                  @endforeach
                 </body>
