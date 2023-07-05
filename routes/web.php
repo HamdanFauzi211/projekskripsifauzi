@@ -5,7 +5,9 @@ use App\Http\Controllers\ItemPerintahController;
 use App\Http\Controllers\KategoriUmurController;
 use App\Http\Controllers\AspekPerkembanganController;
 use App\Http\Controllers\LatihanController;
-
+use App\Http\Controllers\Auth\RegisterController;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -39,6 +41,13 @@ Route::get('aspekperkembangan',[AspekPerkembanganController::class, 'Show']);
 Route::get('latihan',[LatihanController::class, 'Show']);
 Route::post('latihan/proces',[LatihanController::class, 'proses'])->name('latihan.proses');;
 
+
+
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+
+Route::get('register', [RegisterController::class, 'showRegistrationForm'])->name('register');
+Route::post('register', [RegisterController::class, 'register']);
