@@ -10,25 +10,25 @@
   <meta content="" name="keywords">
 
   <!-- Favicons -->
-  <link href="assets/img/logolittlepedia.png" rel="icon">
-  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
-  <link rel="shortcut icon" href="assets/img/logolittlepedia2.png">
+  <link href="/assets/img/logolittlepedia.png" rel="icon">
+  <link href="/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+  <link rel="shortcut icon" href="/assets/img/logolittlepedia2.png">
 
   <!-- Google Fonts -->
   <link href="https://fonts.gstatic.com" rel="preconnect">
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
   <!-- Vendor CSS Files -->
-  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-  <link href="assets/vendor/quill/quill.snow.css" rel="stylesheet">
-  <link href="assets/vendor/quill/quill.bubble.css" rel="stylesheet">
-  <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
-  <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
+  <link href="/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="/assets/vendor/quill/quill.snow.css" rel="stylesheet">
+  <link href="/assets/vendor/quill/quill.bubble.css" rel="stylesheet">
+  <link href="/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+  <link href="/assets/vendor/simple-datatables/style.css" rel="stylesheet">
 
   <!-- Template Main CSS File -->
-  <link href="assets/css/style.css" rel="stylesheet">
+  <link href="/assets/css/style.css" rel="stylesheet">
 
   <!-- =======================================================
   * Template Name: NiceAdmin
@@ -46,7 +46,7 @@
 
     <div class="d-flex align-items-center justify-content-between">
       <a class="logo d-flex align-items-center">
-        <img src="assets/img/logolittlepedia.png" alt="">
+        <img src="/assets/img/logolittlepedia.png" alt="">
 
       </a>
       <i class="bi bi-list toggle-sidebar-btn"></i>
@@ -62,7 +62,7 @@
         </li><!-- End Search Icon-->
 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-            <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
+            <img src="/assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
             <span class="d-none d-md-block dropdown-toggle ps-2">K. Anderson</span>
           </a><!-- End Profile Iamge Icon -->
 
@@ -206,26 +206,57 @@
 
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title" >Sistem Pengukuran Tumbuh Kembang Anak</h5>
+              <h5 class="card-title text-center" >Sistem Pengukuran Tumbuh Kembang Anak</h5>
 
               <!-- General Form Elements -->
-              <form>
+              <form action="{{route('penilaian.screening.langkah2.store')}}" method="POST">
+                @csrf
+                <input type="hidden" name="aspek_perkembangan" value={{$data}}>
+                <input type="hidden" name="kategori_umur_id" value="{{$kategori_umur_id}}">
+                <input type="hidden" name="siswa_id" value="{{$siswa_id}}">
+                <input type="hidden" name="jadwal_penilaian_id" value="{{$jadwal_penilaian_id}}">
+              <h5 >Motorik Kasar</h5>
                 <div class="row mb-3">
-                  <label for="inputEmail" class="col-sm-2 col-form-label">Nama</label>
-                  <div class="col-sm-10">
-                    <input type="email" class="form-control">
-                  </div>
-                </div>
-                <div class="col-12 col-sm-12">
-                <p style="color:black;"><b>&nbsp;kategoriumur</b>
-              </p>
-                <select id="kategoriumur" name="kategoriumur_id" class="form-control bg-light border-0" style="color:black;">
-                @foreach($kategoriumur as $k)
-                <option value="{{ $k->id }}">{{ $k->name }}</option>
-                @endforeach
+                @foreach($data->get(0)->itemperintah as $i)
+                  <label for="inputEmail" class="col-form-label">{{$i->perintah}}</label>
+                  <select name="motorik_kasar[]" class="form-control bg-light" style="color:black;">
+                    <option value="true">Lulus</option>
+                    <option value="false">Tidak Lulus</option>
                 </select>
-                </div> 
-                <button type="button" class="btn btn-primary">KIRIM</button>
+                @endforeach
+                </div>
+                <h5 >Motorik Halus</h5>
+                <div class="row mb-3">
+                @foreach($data->get(1)->itemperintah as $i)
+                  <label for="inputEmail" class="col-form-label">{{$i->perintah}}</label>
+                  <select name="motorik_halus[]" class="form-control bg-light" style="color:black;">
+                    <option value="true">Lulus</option>
+                    <option value="false">Tidak Lulus</option>
+                </select>
+                @endforeach
+                </div>
+                <h5 >Bicara dan Bahasa</h5>
+                <div class="row mb-3">
+                @foreach($data->get(2)->itemperintah as $i)
+                  <label for="inputEmail" class="col-form-label">{{$i->perintah}}</label>
+                  <select name="bicara_dan_bahasa[]" class="form-control bg-light" style="color:black;">
+                    <option value="true">Lulus</option>
+                    <option value="false">Tidak Lulus</option>
+                </select>
+                @endforeach
+                </div>
+                <h5 >Sosial dan Kemandirian</h5>
+                <div class="row mb-3">
+                @foreach($data->get(3)->itemperintah as $i)
+                  <label for="inputEmail" class="col-form-label">{{$i->perintah}}</label>
+                  <select name="sosial_dan_kemandirian[]" class="form-control bg-light" style="color:black;">
+                    <option value="true">Lulus</option>
+                    <option value="false">Tidak Lulus</option>
+                </select>
+                @endforeach
+                </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Hitung</button>
 
               </form><!-- End General Form Elements -->
 
@@ -248,17 +279,17 @@
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
   <!-- Vendor JS Files -->
-  <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
-  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/chart.js/chart.umd.js"></script>
-  <script src="assets/vendor/echarts/echarts.min.js"></script>
-  <script src="assets/vendor/quill/quill.min.js"></script>
-  <script src="assets/vendor/simple-datatables/simple-datatables.js"></script>
-  <script src="assets/vendor/tinymce/tinymce.min.js"></script>
-  <script src="assets/vendor/php-email-form/validate.js"></script>
+  <script src="/assets/vendor/apexcharts/apexcharts.min.js"></script>
+  <script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="/assets/vendor/chart.js/chart.umd.js"></script>
+  <script src="/assets/vendor/echarts/echarts.min.js"></script>
+  <script src="/assets/vendor/quill/quill.min.js"></script>
+  <script src="/assets/vendor/simple-datatables/simple-datatables.js"></script>
+  <script src="/assets/vendor/tinymce/tinymce.min.js"></script>
+  <script src="/assets/vendor/php-email-form/validate.js"></script>
 
   <!-- Template Main JS File -->
-  <script src="assets/js/main.js"></script>
+  <script src="/assets/js/main.js"></script>
 
 </body>
 

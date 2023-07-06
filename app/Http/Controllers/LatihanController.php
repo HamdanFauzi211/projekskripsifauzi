@@ -8,6 +8,10 @@ use App\Models\Hasil;
 
 class LatihanController extends Controller
 {
+    function index(){
+        
+    }
+
     function show() {
         $data=Latihan::all();
         return view('latihan',compact(['data']));

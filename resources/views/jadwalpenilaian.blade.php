@@ -121,7 +121,7 @@
   <!-- ======= Sidebar ======= -->
   <aside id="sidebar" class="sidebar">
 
-    <ul class="sidebar-nav" id="sidebar-nav">
+  <ul class="sidebar-nav" id="sidebar-nav">
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
           <i class="bi bi-layout-text-window-reverse"></i><span>Kumpulan Data</span><i class="bi bi-chevron-down ms-auto"></i>
@@ -142,20 +142,16 @@
               <i class="bi bi-circle"></i><span>Item Perintah</span>
             </a>
           </li>
-          <a href="{{url('/jadwalpenilaian')}}">
-              <i class="bi bi-circle"></i><span>Jadwal Penilaian</span>
-            </a>
-          </li>
-          <li>
         </ul>
       </li><!-- End Tables Nav -->
+  
     </ul>
 
   </aside><!-- End Sidebar-->
 
   <main id="main" class="main">
 
-    <div class="pagetitle">
+    <!-- <div class="pagetitle">
       <h1>Dashboard</h1>
       <nav>
         <ol class="breadcrumb">
@@ -163,28 +159,46 @@
           <li class="breadcrumb-item active">Dashboard</li>
           
         </ol>
-      </nav>
+      </nav> -->
     </div><!-- End Page Title -->
 
-    <section class="section dashboard">
+    <section class="section">
       <div class="row">
+        <div class="col-lg-12">
 
-        <!-- Left side columns -->
-        <div class="col-lg-8">
-          <div class="row">
-          </div>
-        </div><!-- End Left side columns -->
-
-        <!-- Right side columns -->
-        <div class="col-lg-4">
-
-              </div><!-- End sidebar recent posts-->
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Data Jadwal Penilaian</h5>
+             
+              <!-- Table with stripped rows -->
+              <table class="table datatable">
+                <thead>
+                  <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Nama Jadwal</th>
+                    <th scope="col">Tangaal </th>
+                    <th scope="col">Kategori Umur</th>
+                    <th></th>
+                  </tr>
+                  @foreach ($jadwalpenilaian as $j)
+                </thead>
+                <body>
+                  <tr>
+                    <td>{{$j -> id }}</td>
+                    <td>{{$j -> nama_jadwal }}</td>
+                    <td>{{$j -> tanggal }}</td>
+                    <td>{{$j ->kategoriumur->kategori_umur }}</td>
+                    <td><a href="{{route('penilaian.screening.langkah1.index', $j->id)}}" type="button" class="btn btn-success">Nilai</a></td>
+                  
+                 @endforeach
+                </body>
+              </table>
+              <!-- End Table with stripped rows -->
 
             </div>
-          </div><!-- End News & Updates -->
+          </div>
 
-        </div><!-- End Right side columns -->
-
+        </div>
       </div>
     </section>
 

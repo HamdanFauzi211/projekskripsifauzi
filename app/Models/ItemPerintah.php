@@ -27,6 +27,10 @@ class ItemPerintah extends Model
         return $this->belongsTo(KategoriUmur::class, 'kategori_umur_id', 'id');
     }
 
+    public function penilaian(){
+        return $this->hasMany(Penilaian::class, 'item_perintah_id', 'id');
+    }
+
     public static function index()
     {
         return ItemPerintah::all();
