@@ -48,7 +48,8 @@ Route::get('penilaian/screening/langkah1/{jadwal_penilaian_id}',[PenilaianContro
 Route::post('penilaian/screening/langkah1',[PenilaianController::class, 'storeLangkah1'])->name('penilaian.screening.langkah1.store');
 Route::get('penilaian/screening/langkah2/{jadwal_penilaian_id}/{siswa_id}/{kategori_umur_id}',[PenilaianController::class, 'indexLangkah2'])->name('penilaian.screening.langkah2.index');
 Route::post('penilaian/screening/langkah2',[PenilaianController::class, 'storeLangkah2'])->name('penilaian.screening.langkah2.store');
-Route::get('penilaian/screening/hasil/{jadwal_penilaian_id}', [PenilaianController::class, 'hasilpenilaian'])->name('penilaian.screening.hasil.index');
+Route::get('penilaian/screening/hasil/{jadwal_penilaian_id}/{siswa_id}', [PenilaianController::class, 'hasilpenilaian'])->name('penilaian.screening.hasil.index');
+Route::get('penilaian/screening/hasil/kesimpulan/{jadwal_penilaian_id}/{siswa_id}', [PenilaianController::class, 'hasilPenilaianAkhir'])->name('penilaian.screening.hasil.kesimpulan.index');
 
 
 Auth::routes();

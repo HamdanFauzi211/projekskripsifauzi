@@ -214,7 +214,7 @@
                             <!-- General Form Elements -->
                             @php
                                 $motorik_kasar = $data->where('aspek_perkembangan_id', 1);
-                                $total_motorik_kasar = $motorik_kasar->pluck('penilaian.0.skor')->sum();
+                                $total_motorik_kasar = min($motorik_kasar->pluck('penilaian.0.skor')->sum(), 100);
                             @endphp
                             <div class="row mb-3">
                                 <h5>Motorik Kasar</h5>
@@ -230,17 +230,17 @@
                                         @foreach ($motorik_kasar as $d)
                                             <tr>
                                                 <td>{{ $d->perintah }}</td>
-                                                <td>{{ $d->penilaian->get(0)->skor }}</td>
+                                                <td>{{ number_format((float)$d->penilaian->get(0)->skor, 2, '.', '') }}</td>
                                             </tr>
                                         @endforeach
                                         <tr>
                                             <th scope="col">Total</th>
-                                            <td> {{ $total_motorik_kasar }} </td>
+                                            <td> {{number_format((float)$total_motorik_kasar, 2, '.', '')}} </td>
                                         </tr>
                                         <tr>
                                             <th scope="col">Kesimpulan</th>
                                             <td>
-                                                @if ($total_motorik_kasar >= 25)
+                                                @if ($total_motorik_kasar >= 50)
                                                     "Normal"
                                                 @else
                                                     "Caution/Peringatan"
@@ -252,7 +252,7 @@
 
                             @php
                                 $motorik_halus = $data->where('aspek_perkembangan_id', 2);
-                                $total_motorik_halus = $motorik_halus->pluck('penilaian.0.skor')->sum();
+                                $total_motorik_halus = min($motorik_halus->pluck('penilaian.0.skor')->sum(), 100);
                             @endphp
                             <div class="row mb-3">
                                 <h5>Motorik Halus</h5>
@@ -267,17 +267,17 @@
                                         @foreach ($motorik_halus as $d)
                                             <tr>
                                                 <td>{{ $d->perintah }}</td>
-                                                <td>{{ $d->penilaian->get(0)->skor }}</td>
+                                                <td>{{ number_format((float)$d->penilaian->get(0)->skor, 2, '.', '') }}</td>
                                             </tr>
                                         @endforeach
                                         <tr>
                                             <th scope="col">Total</th>
-                                            <td> {{ $total_motorik_halus }} </td>
+                                            <td> {{number_format((float)$total_motorik_halus, 2, '.', '')}} </td>
                                         </tr>
                                         <tr>
                                             <th scope="col">Kesimpulan</th>
                                             <td>
-                                                @if ($total_motorik_halus >= 25)
+                                                @if ($total_motorik_halus >= 50)
                                                     "Normal"
                                                 @else
                                                     "Caution/Peringatan"
@@ -289,7 +289,7 @@
 
                             @php
                                 $bicara_dan_bahasa = $data->where('aspek_perkembangan_id', 3);
-                                $total_bicara_dan_bahasa = $bicara_dan_bahasa->pluck('penilaian.0.skor')->sum();
+                                $total_bicara_dan_bahasa = min($bicara_dan_bahasa->pluck('penilaian.0.skor')->sum(), 100);
                             @endphp
                             <div class="row mb-3">
                                 <h5>Bicara dan Bahasa</h5>
@@ -304,17 +304,17 @@
                                         @foreach ($bicara_dan_bahasa as $d)
                                             <tr>
                                                 <td>{{ $d->perintah }}</td>
-                                                <td>{{ $d->penilaian->get(0)->skor }}</td>
+                                                <td>{{ number_format((float)$d->penilaian->get(0)->skor, 2, '.', '') }}</td>
                                             </tr>
                                         @endforeach
                                         <tr>
                                             <th scope="col">Total</th>
-                                            <td> {{ $total_bicara_dan_bahasa }} </td>
+                                            <td> {{number_format((float)$total_bicara_dan_bahasa, 2, '.', '')}} </td>
                                         </tr>
                                         <tr>
                                             <th scope="col">Kesimpulan</th>
                                             <td>
-                                                @if ($total_bicara_dan_bahasa >= 25)
+                                                @if ($total_bicara_dan_bahasa >= 50)
                                                     "Normal"
                                                 @else
                                                     "Caution/Peringatan"
@@ -326,7 +326,7 @@
 
                             @php
                                 $sosial_dan_kemandirian = $data->where('aspek_perkembangan_id', 4);
-                                $total_sosial_dan_kemandirian = $sosial_dan_kemandirian->pluck('penilaian.0.skor')->sum();
+                                $total_sosial_dan_kemandirian = min($sosial_dan_kemandirian->pluck('penilaian.0.skor')->sum(), 100);
                             @endphp
                             <div class="row mb-3">
                                 <h5>Sosial dan Kemandirian</h5>
@@ -341,17 +341,17 @@
                                         @foreach ($sosial_dan_kemandirian as $d)
                                             <tr>
                                                 <td>{{ $d->perintah }}</td>
-                                                <td>{{ $d->penilaian->get(0)->skor }}</td>
+                                                <td>{{ number_format((float)$d->penilaian->get(0)->skor, 2, '.', '') }}</td>
                                             </tr>
                                         @endforeach
                                         <tr>
                                             <th scope="col">Total</th>
-                                            <td> {{ $total_sosial_dan_kemandirian }} </td>
+                                            <td> {{number_format((float)$total_sosial_dan_kemandirian, 2, '.', '')}} </td>
                                         </tr>
                                         <tr>
                                             <th scope="col">Kesimpulan</th>
                                             <td>
-                                                @if ($total_sosial_dan_kemandirian >= 25)
+                                                @if ($total_sosial_dan_kemandirian >= 50)
                                                     "Normal"
                                                 @else
                                                     "Caution/Peringatan"
@@ -360,6 +360,7 @@
                                         </tr>
                                 </table>
                             </div>
+                            <a href="{{route('penilaian.screening.hasil.kesimpulan.index', ['jadwal_penilaian_id' =>$jadwal_penilaian_id, 'siswa_id' => $siswa_id])}}" class="btn btn-primary">Tarik Kesimpulan</a>
                         </div>
                     </div>
                 </div>

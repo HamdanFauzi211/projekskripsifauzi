@@ -8,6 +8,10 @@ use App\Models\ItemPerintah;
 use App\Models\AspekPerkembangan;
 use App\Models\Siswa;
 use App\Models\Penilaian;
+use App\Models\NilaiInterpretasiHasil;
+use App\Models\NilaiInterpretasiAkhir;
+
+
 class PenilaianController extends Controller
 {
     /**
@@ -33,7 +37,7 @@ class PenilaianController extends Controller
     }
 
     
-    public function indexLangkah2($siswa_id, $kategori_umur_id, $jadwal_penilaian_id)
+    public function indexLangkah2($jadwal_penilaian_id, $siswa_id, $kategori_umur_id)
     {
         $data = AspekPerkembangan::with(['itemperintah' => function ($query) use ($kategori_umur_id) {
                 $query->where('kategori_umur_id', $kategori_umur_id);
@@ -60,7 +64,11 @@ class PenilaianController extends Controller
         $sosial_dan_kemandirian = $request->get('sosial_dan_kemandirian');
 
         foreach($data as $i => $aspek_perkembangan){
-            $nilai = 100 / count($aspek_perkembangan->itemperintah);
+
+            $total = 100;
+            $jumlahItemPerintah = count($aspek_perkembangan->itemperintah);
+            $nilai = $jumlahItemPerintah !== 0 ? $total / $jumlahItemPerintah : 0;
+
             $aspekPerkembangan = [];
             switch ($i) {
                 case 0:
@@ -88,82 +96,106 @@ class PenilaianController extends Controller
             }
         }
 
-        return redirect()->route('penilaian.screening.hasil.index', ['jadwal_penilaian_id' => $jadwal_penilaian_id]);
+        return redirect()->route('penilaian.screening.hasil.index', ['jadwal_penilaian_id' => $jadwal_penilaian_id, 'siswa_id' => $siswa_id]);
     }
 
-    public function hasilpenilaian($jadwal_penilaian_id)
+    public function storeHasilPenilaian($jadwal_penilaian_id, $siswa_id, $data){
+        $total_motorik_kasar = $data->where('aspek_perkembangan_id', 1)->pluck('penilaian.0.skor')->sum();
+        $total_motorik_halus = $data->where('aspek_perkembangan_id', 2)->pluck('penilaian.0.skor')->sum();
+        $total_bicara_dan_bahasa = $data->where('aspek_perkembangan_id', 3)->pluck('penilaian.0.skor')->sum();
+        $total_sosial_dan_kemandirian = $data->where('aspek_perkembangan_id', 4)->pluck('penilaian.0.skor')->sum();
+
+        $store_data = [
+            [
+                'interpretasi_hasil_id' => $total_motorik_kasar >= 50 ? 1 : 2,
+                'siswa_id' => $siswa_id,
+                'jadwal_penilaian_id' => $jadwal_penilaian_id,
+                'aspek_perkembangan_id' => 1
+            ],
+            [
+                'interpretasi_hasil_id' => $total_motorik_halus >= 50 ? 1 : 2,
+                'siswa_id' => $siswa_id,
+                'jadwal_penilaian_id' => $jadwal_penilaian_id,
+                'aspek_perkembangan_id' => 2
+            ],
+            [
+                'interpretasi_hasil_id' => $total_bicara_dan_bahasa >= 50 ? 1 : 2,
+                'siswa_id' => $siswa_id,
+                'jadwal_penilaian_id' => $jadwal_penilaian_id,
+                'aspek_perkembangan_id' => 3
+            ],
+            [
+                'interpretasi_hasil_id' => $total_sosial_dan_kemandirian >= 50 ? 1 : 2,
+                'siswa_id' => $siswa_id,
+                'jadwal_penilaian_id' => $jadwal_penilaian_id,
+                'aspek_perkembangan_id' => 4
+            ]
+            ];
+
+        foreach ($store_data as $record) {
+            NilaiInterpretasiHasil::create($record);
+        }
+        
+    }
+
+    public function hasilpenilaian($jadwal_penilaian_id, $siswa_id)
     {
-        $data = ItemPerintah::with(['penilaian' => function ($query) use ($jadwal_penilaian_id){
-            $query->where('jadwal_penilaian_id', $jadwal_penilaian_id);
+        $data = ItemPerintah::with(['penilaian' => function ($query) use ($jadwal_penilaian_id, $siswa_id){
+            $query->where('jadwal_penilaian_id', $jadwal_penilaian_id)
+                ->where('siswa_id', $siswa_id);
         }])
             ->whereHas('penilaian')
-            ->get();        
-        return view('penilaian.screaningtest.hasil', compact('data'));
+            ->get();    
+
+        $this->storeHasilPenilaian($jadwal_penilaian_id, $siswa_id, $data);
+            
+        return view('penilaian.screaningtest.hasil', compact('data', 'jadwal_penilaian_id', 'siswa_id'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+    public function storeHasilPenilaianAkhir($siswa_id, $jadwal_penilaian_id){
+        $data = NilaiInterpretasiHasil::with('interpretasihasil')
+            ->where('siswa_id', $siswa_id)
+            ->where('jadwal_penilaian_id', $jadwal_penilaian_id)
+            ->get()
+            ->pluck('interpretasihasil.kesimpulan')
+            ->toArray();
+        
+        $jumlah_hasil = array_count_values($data);
+
+        $insert_data = [];
+
+        if (isset($countedValues["Caution"]) && $countedValues["Caution"] <= 1) {
+            $insert_data = [
+                'siswa_id' => $siswa_id,
+                'interpretasi_akhir_id' => 1,
+                'jadwal_penilaian_id' => $jadwal_penilaian_id
+            ];
+
+        } else if (isset($countedValues["Caution"]) && $countedValues["Caution"] -= 2) {
+            $insert_data = [
+                'siswa_id' => $siswa_id,
+                'interpretasi_akhir_id' => 2,
+                'jadwal_penilaian_id' => $jadwal_penilaian_id
+            ];
+        }else{
+            $insert_data = [
+                'siswa_id' => $siswa_id,
+                'interpretasi_akhir_id' => 3,
+                'jadwal_penilaian_id' => $jadwal_penilaian_id
+            ];
+        }
+
+        NilaiInterpretasiAkhir::create($insert_data);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+    public function hasilPenilaianAkhir($siswa_id, $jadwal_penilaian_id){
+       $this->storeHasilPenilaianAkhir($siswa_id, $jadwal_penilaian_id);
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
+       $kesimpulan = NilaiInterpretasiAkhir::with('interpretasiakhir', 'siswa')
+        ->where('jadwal_penilaian_id', $jadwal_penilaian_id)
+        ->where('siswa_id', $siswa_id)
+        ->first();
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        return view('kesimpulan', compact('kesimpulan'));
     }
 }

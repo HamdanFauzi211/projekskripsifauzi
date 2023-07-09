@@ -177,7 +177,7 @@
                     <th scope="col">ID</th>
                     <th scope="col">Nama Jadwal</th>
                     <th scope="col">Tangaal </th>
-                    <th scope="col">Kategori Umur</th>
+                    <!-- <th scope="col">Kategori Umur</th> -->
                     <th></th>
                   </tr>
                   @foreach ($jadwalpenilaian as $j)
@@ -187,7 +187,7 @@
                     <td>{{$j -> id }}</td>
                     <td>{{$j -> nama_jadwal }}</td>
                     <td>{{$j -> tanggal }}</td>
-                    <td>{{$j ->kategoriumur->kategori_umur }}</td>
+                    <!-- <td>{{$j ->kategoriumur->kategori_umur }}</td> -->
                     <td><a href="{{route('penilaian.screening.langkah1.index', $j->id)}}" type="button" class="btn btn-success">Nilai</a></td>
                   
                  @endforeach
