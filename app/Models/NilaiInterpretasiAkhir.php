@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Http\Request;
 class NilaiInterpretasiAkhir extends Model
 {
     use HasFactory;
@@ -21,5 +21,9 @@ class NilaiInterpretasiAkhir extends Model
 
     public function siswa(){
         return $this->belongsTo(Siswa::class, 'siswa_id', 'id');
+    }
+
+    public function jadwalpenilaian(){
+        return $this->belongsTo(JadwalPenilaian::class, 'jadwal_penilaian_id', 'id');
     }
 }

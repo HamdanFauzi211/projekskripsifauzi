@@ -10,7 +10,9 @@ use App\Http\Controllers\PenilaianController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\HasilPenilaianSiswaController;
 use App\Http\Controllers\SiswaController;
+
 // use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
@@ -44,6 +46,7 @@ Route::get('/login', function () {
     Route::get('guru/itemperintah',[ItemPerintahController::class, 'Show']);
     Route::get('guru/kategoriumur',[KategoriUmurController::class, 'Show']);
     Route::get('guru/aspekperkembangan',[AspekPerkembanganController::class, 'Show']);
+    Route::get('guru/hasilpenilaiansiswa',[HasilPenilaianSiswaController::class, 'Show']);
     Route::get('guru/datasiswa',[SiswaController::class, 'show']);
     Route::resource('guru/jadwalpenilaian', JadwalPenilaianController::class);
     Route::get('guru/penilaian/screening/langkah1/{jadwal_penilaian_id}',[PenilaianController::class, 'indexLangkah1'])->name('penilaian.screening.langkah1.index');
