@@ -12,4 +12,20 @@ class KategoriUmurController extends Controller
         $data=KategoriUmur::all();
         return view('guru.kategoriumur',['kategoriumur'=>$data]);
     }
+
+    function showadminkategoriumur() {
+        $data=KategoriUmur::all();
+        return view('admin.kategoriumur',['kategoriumur'=>$data]);
+    }
+
+    function showadminaspekperkembangan() {
+        $data=AspekPerkembangan::all();
+        return view('admin.aspekperkembangan',['aspekperkembangan'=>$data]);
+    }
+
+    function showadminitemperintah() {
+        $data=ItemPerintah::all();
+        return view('admin.itemperintah',['itemperintah'=>$data]);
+    }
+
 }

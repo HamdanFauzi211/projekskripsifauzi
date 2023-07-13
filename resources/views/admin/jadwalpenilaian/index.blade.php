@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -64,56 +62,21 @@
         </li><!-- End Search Icon-->
 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-            <img src="/assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
-            <span class="d-none d-md-block dropdown-toggle ps-2">K. Anderson</span>
+            <span class="d-none d-md-block dropdown-toggle ps-2">{{ Auth::user()->nama }}</span>
           </a><!-- End Profile Iamge Icon -->
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
-            <li class="dropdown-header">
-              <h6>Kevin Anderson</h6>
-              <span>Web Designer</span>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li>
-              <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
-                <i class="bi bi-person"></i>
-                <span>My Profile</span>
-              </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li>
-              <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
-                <i class="bi bi-gear"></i>
-                <span>Account Settings</span>
-              </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li>
-              <a class="dropdown-item d-flex align-items-center" href="pages-faq.html">
-                <i class="bi bi-question-circle"></i>
-                <span>Need Help?</span>
-              </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li>
-              <a class="dropdown-item d-flex align-items-center" href="#">
-                <i class="bi bi-box-arrow-right"></i>
-                <span>Sign Out</span>
-              </a>
-            </li>
-
+      
+                @csrf
+                  <a class="dropdown-item d-flex align-items-center" href="{{ route('logout') }}"
+                    onclick="event.preventDefault();
+                      document.getElementById('logout-form').submit();">
+                      {{ __('Logout') }}
+                      </a>
+                      <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                       @csrf
+                      </form>
+                </li>                      
           </ul><!-- End Profile Dropdown Items -->
         </li><!-- End Profile Nav -->
       </ul>
@@ -123,31 +86,58 @@
   <!-- ======= Sidebar ======= -->
   <aside id="sidebar" class="sidebar">
 
-  <ul class="sidebar-nav" id="sidebar-nav">
+    <ul class="sidebar-nav" id="sidebar-nav">
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-layout-text-window-reverse"></i><span>Kumpulan Data</span><i class="bi bi-chevron-down ms-auto"></i>
+         
+        <i class="bi bi-layout-text-window-reverse"></i><span>Data Master</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="{{url('/kategoriumur')}}">
-              <i class="bi bi-circle"></i><span>Kategori Umur</span>
+            <a href="{{url('admin/kategoriumur')}}">
+              <i class="bi bi-circle"></i><span>Data Kategori Umur</span>
             </a>
           </li>
+
           <li>
-          <a href="{{url('/aspekperkembangan')}}">
-              <i class="bi bi-circle"></i><span>Aspek Perkembangan</span>
+          <a href="{{url('admin/aspekperkembangan')}}">
+              <i class="bi bi-circle"></i><span>Data Aspek Perkembangan</span>
             </a>
           </li>
+
           <li>
-          <a href="{{url('/itemperintah')}}">
-              <i class="bi bi-circle"></i><span>Item Perintah</span>
+          <a href="{{url('/admin/itemperintah')}}">
+              <i class="bi bi-circle"></i><span>Data Item Perintah</span>
             </a>
           </li>
+          </ul>
+
+        <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-layout-text-window-reverse"></i><span>Tambah Data</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+
+          <li>
+          <a href="{{url('admin/jadwalpenilaian')}}">
+              <i class="bi bi-circle"></i><span>Jadwal Penilaian</span>
+            </a>
+          </li>
+
+          <li>
+          <a href="{{url('admin/siswa')}}">
+              <i class="bi bi-circle"></i><span>Siswa</span>
+            </a>
+          </li>
+
+          <li>
+          <a href="{{url('admin/hasilpenilaiansiswa')}}">
+              <i class="bi bi-circle"></i><span>Hasil penilaian</span>
+            </a>
+          </li>
+
         </ul>
       </li><!-- End Tables Nav -->
     </ul>
-
   </aside><!-- End Sidebar-->
 
   <main id="main" class="main">

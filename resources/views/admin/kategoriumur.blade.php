@@ -143,33 +143,47 @@
   <main id="main" class="main">
 
     <div class="pagetitle">
-      <h1>  <h2 class="center-text" style="text-align: center;">Halaman {{ Auth::user()->role}}</h2>
-      <h1>  <h2 class="center-text" style="text-align: center;">Halo  {{ Auth::user()->nama }}</h2>
-   
+      <h1>Dashboard</h1>
       <nav>
-  
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+          <li class="breadcrumb-item active">Dashboard</li>
+          
+        </ol>
       </nav>
     </div><!-- End Page Title -->
 
-    <section class="section dashboard">
+    <section class="section">
       <div class="row">
+        <div class="col-lg-12">
 
-        <!-- Left side columns -->
-        <div class="col-lg-8">
-          <div class="row">
-          </div>
-        </div><!-- End Left side columns -->
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Datatables</h5>
+              <p>Add lightweight datatables to your project with using the <a href="https://github.com/fiduswriter/Simple-DataTables" target="_blank">Simple DataTables</a> library. Just add <code>.datatable</code> class name to any table you wish to conver to a datatable</p>
 
-        <!-- Right side columns -->
-        <div class="col-lg-4">
-
-              </div><!-- End sidebar recent posts-->
+              <!-- Table with stripped rows -->
+              <table class="table datatable">
+                <thead>
+                  <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Kategori Umur</th>
+                  </tr>
+                  @foreach ($kategoriumur as $k)
+                </thead>
+                <body>
+                  <tr>
+                    <td>{{ $k->id}}</td>
+                    <td>{{ $k->kategori_umur}}</td>
+                 @endforeach
+                </body>
+              </table>
+              <!-- End Table with stripped rows -->
 
             </div>
-          </div><!-- End News & Updates -->
+          </div>
 
-        </div><!-- End Right side columns -->
-
+        </div>
       </div>
     </section>
 
@@ -178,7 +192,14 @@
   <!-- ======= Footer ======= -->
   <footer id="footer" class="footer">
     <div class="copyright">
-      &copy; Copyright <strong><span>Hamdan Fauzi</span></strong>. All Rights Reserved
+      &copy; Copyright <strong><span>NiceAdmin</span></strong>. All Rights Reserved
+    </div>
+    <div class="credits">
+      <!-- All the links in the footer should remain intact. -->
+      <!-- You can delete the links only if you purchased the pro version. -->
+      <!-- Licensing information: https://bootstrapmade.com/license/ -->
+      <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ -->
+      Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
     </div>
   </footer><!-- End Footer -->
 

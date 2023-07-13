@@ -55,18 +55,20 @@ Route::middleware(['auth', 'Guru'])->group(function () {
     Route::post('guru/penilaian/screening/langkah2',[PenilaianController::class, 'storeLangkah2'])->name('penilaian.screening.langkah2.store');
     Route::get('guru/penilaian/screening/hasil/{jadwal_penilaian_id}/{siswa_id}', [PenilaianController::class, 'hasilpenilaian'])->name('penilaian.screening.hasil.index');
     Route::get('guru/penilaian/screening/hasil/kesimpulan/{jadwal_penilaian_id}/{siswa_id}', [PenilaianController::class, 'hasilPenilaianAkhir'])->name('penilaian.screening.hasil.kesimpulan.index');
-
-
 });
 
 
 Route::middleware(['auth', 'Admin'])->group(function () {
     Route::get('admin/index', [AuthController::class, 'AdminIndex']);
+    Route::get('admin/kategoriumur',[KategoriUmurController::class, 'show']);
+    Route::get('admin/aspekperkembangan',[KategoriUmurController::class, 'showadminaspekperkembangan']);
+    Route::get('admin/itemperintah',[KategoriUmurController::class, 'showadminitemperintah']);
     Route::get('admin/register', [AdminController::class, 'register'])->name('admin.register');
     Route::post('admin/register/proses', [AdminController::class, 'prosesRegister'])->name('admin.register.proses');
     Route::get('/admin/datauser',[AdminController::class, 'user'])->name('account.user');
     Route::resource('admin/siswa', SiswaController::class);
     Route::resource('admin/jadwalpenilaian', AdminController::class);
+    Route::get('admin/hasilpenilaiansiswa',[HasilPenilaianSiswaController::class, 'Show']);
 });
 
 Route::middleware(['auth', 'Pakar'])->group(function () {
@@ -76,9 +78,6 @@ Route::middleware(['auth', 'Pakar'])->group(function () {
 Route::middleware(['auth', 'OrangTua'])->group(function () {
     Route::get('orangtua/index', [AuthController::class, 'OrangTuaIndex']);
  });
-
-
-
 
 
 Auth::routes();
