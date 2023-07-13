@@ -62,9 +62,23 @@ class AuthController extends Controller
         return Redirect('login');
     }
 
+
+    public function AdminIndex()
+    {
+       return view('admin.index');
+    }
+
     public function GuruIndex()
      {
         return view('guru.index');
      }
 
+     public function OrangTuaIndex()
+     {
+        return view('orangtua.index');
+     }
+     public function PakarIndex()
+     {
+        return view('pakar.index');
+     }
 }

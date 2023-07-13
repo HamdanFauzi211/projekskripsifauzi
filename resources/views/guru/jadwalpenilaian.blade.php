@@ -199,7 +199,6 @@
                     <td>{{$j -> id }}</td>
                     <td>{{$j -> nama_jadwal }}</td>
                     <td>{{$j -> tanggal }}</td>
-                    <!-- <td>{{$j ->kategoriumur->kategori_umur }}</td> -->
                     <td><a href="{{route('penilaian.screening.langkah1.index', $j->id)}}" type="button" class="btn btn-success">Nilai</a></td>
                   
                  @endforeach

@@ -35,9 +35,17 @@ class UserSeeder extends Seeder
             [
                 'nama' => 'Hamdan Fauzi',
                 'no_hp' => '081717456902',
-                'username' => 'hamdanfauzi',
-                'password' => Hash::make('fauzi123'),
+                'username' => 'orangtua1',
+                'password' => Hash::make('orangtua123'),
                 'role' => 'OrangTua',
+            ],
+
+            [
+                'nama' => 'Pratama',
+                'no_hp' => '081717456234',
+                'username' => 'pakar1',
+                'password' => Hash::make('pakar123'),
+                'role' => 'Pakar',
             ],
         ]);
     }

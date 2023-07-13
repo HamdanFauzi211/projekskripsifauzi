@@ -14,7 +14,7 @@ class JadwalPenilaianController extends Controller
      */
     public function index()
     {
-        $data=JadwalPenilaian::with('kategoriumur')->get();
+        $data=JadwalPenilaian::all();
         return view('guru.jadwalpenilaian',['jadwalpenilaian'=>$data]);
     }
 

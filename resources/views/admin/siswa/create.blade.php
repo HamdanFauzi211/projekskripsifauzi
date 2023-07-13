@@ -163,7 +163,7 @@
       </nav>
     </div><!-- End Page Title -->
 <!-- START FORM -->
-<form action="{{ route('siswa.store') }}" method="POST" enctype="multipart/form-data">
+<form action="{{ route('jadwalpenilaian.store') }}" method="POST" enctype="multipart/form-data">
     @csrf
         <div class="my-3 p-3 bg-body rounded shadow-sm">
 
