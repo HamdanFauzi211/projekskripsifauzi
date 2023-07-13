@@ -46,7 +46,7 @@
 
     <div class="d-flex align-items-center justify-content-between">
       <a class="logo d-flex align-items-center">
-        <img src="/assets/img/logolittlepedia.png" alt="">
+        <img src="assets/img/logolittlepedia.png" alt="">
 
       </a>
       <i class="bi bi-list toggle-sidebar-btn"></i>
@@ -62,7 +62,7 @@
         </li><!-- End Search Icon-->
 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-            <img src="/assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
+            <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
             <span class="d-none d-md-block dropdown-toggle ps-2">K. Anderson</span>
           </a><!-- End Profile Iamge Icon -->
 
@@ -118,78 +118,52 @@
     </nav><!-- End Icons Navigation -->
   </header><!-- End Header -->
 
-  <!-- ======= Sidebar ======= -->
-  <aside id="sidebar" class="sidebar">
+    <!-- ======= Sidebar ======= -->
+    <aside id="sidebar" class="sidebar">
 
-    <ul class="sidebar-nav" id="sidebar-nav">
-      <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-journal-text"></i><span>Master Data</span><i class="bi bi-chevron-down ms-auto"></i>
+<ul class="sidebar-nav" id="sidebar-nav">
+  <li class="nav-item">
+    <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
+      <i class="bi bi-layout-text-window-reverse"></i><span>Data Master</span><i class="bi bi-chevron-down ms-auto"></i>
+    </a>
+    <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+      <li>
+        <a href="{{url('guru/kategoriumur')}}">
+          <i class="bi bi-circle"></i><span>Kategori Umur</span>
         </a>
-        <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-
-          <li>
-          <a href="{{ url('/dataanak') }}">
-              <i class="bi bi-circle"></i><span>Data Anak</span>
-            </a>
-          </li>
-
-          <li>
-            <a href="forms-elements.html">
-              <i class="bi bi-circle"></i><span>Data Tumbuh Kembang Anak</span>
-            </a>
-          </li>
-
-          <li>
-            <a href="forms-elements.html">
-              <i class="bi bi-circle"></i><span>Data Status Gizi Anak</span>
-            </a>
-          </li>
-
-
-          <li>
-        </ul>
-      </li><!-- End Forms Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-layout-text-window-reverse"></i><span>Tables</span><i class="bi bi-chevron-down ms-auto"></i>
+      </li>
+      <li>
+      <a href="{{url('guru/aspekperkembangan')}}">
+          <i class="bi bi-circle"></i><span>Aspek Perkembangan</span>
         </a>
-        <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-          <li>
-            <a href="tables-general.html">
-              <i class="bi bi-circle"></i><span>General Tables</span>
-              
-            </a>
-          </li>
-          <li>
-            <a href="tables-data.html">
-              <i class="bi bi-circle"></i><span>Data Tables</span>
-            </a>
-          </li>
-        </ul>
-      </li><!-- End Tables Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-register.html">
-          <i class="bi bi-card-list"></i>
-          <span>Register</span>
+      </li>
+      <li>
+      <a href="{{url('/guru/itemperintah')}}">
+          <i class="bi bi-circle"></i><span>Item Perintah</span>
         </a>
-      </li><!-- End Register Page Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-login.html">
-          <i class="bi bi-box-arrow-in-right"></i>
-          <span>Login</span>
-        </a>
-      </li><!-- End Login Page Nav -->
+      </li>
     </ul>
 
-  </aside><!-- End Sidebar-->
+    <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
+      <i class="bi bi-layout-text-window-reverse"></i><span>Jadwal</span><i class="bi bi-chevron-down ms-auto"></i>
+    </a>
+    <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+      <li>
+      <a href="{{url('guru/jadwalpenilaian')}}">
+          <i class="bi bi-circle"></i><span>Jadwal Penilaian</span>
+        </a>
+      </li>
+    </ul>
+  </li><!-- End Tables Nav -->
+</ul>
+  </li><!-- End Tables Nav -->
+</ul>
+
+</aside><!-- End Sidebar-->
 
   <main id="main" class="main">
 
-    <div class="pagetitle">
+    <!-- <div class="pagetitle">
       <h1>Dashboard</h1>
       <nav>
         <ol class="breadcrumb">
@@ -197,7 +171,7 @@
           <li class="breadcrumb-item active">Dashboard</li>
           
         </ol>
-      </nav>
+      </nav> -->
     </div><!-- End Page Title -->
 
     <section class="section">
@@ -206,35 +180,39 @@
 
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title text-center" >Sistem Pengukuran Tumbuh Kembang Anak</h5>
+              <h5 class="card-title">Data Jadwal Penilaian</h5>
+             
+              <!-- Table with stripped rows -->
+              <table class="table datatable">
+                <thead>
+                  <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Nama Jadwal</th>
+                    <th scope="col">Tangaal </th>
+                    <!-- <th scope="col">Kategori Umur</th> -->
+                    <th></th>
+                  </tr>
+                  @foreach ($jadwalpenilaian as $j)
+                </thead>
+                <body>
+                  <tr>
+                    <td>{{$j -> id }}</td>
+                    <td>{{$j -> nama_jadwal }}</td>
+                    <td>{{$j -> tanggal }}</td>
+                    <!-- <td>{{$j ->kategoriumur->kategori_umur }}</td> -->
+                    <td><a href="{{route('penilaian.screening.langkah1.index', $j->id)}}" type="button" class="btn btn-success">Nilai</a></td>
+                  
+                 @endforeach
+                </body>
+              </table>
+              <!-- End Table with stripped rows -->
 
-              <!-- General Form Elements -->
-              <form action="{{route('penilaian.screening.langkah1.store')}}" method="POST">
-                @csrf
-                <input type="hidden" name="jadwal_penilaian_id" value="{{$jadwal_penilaian_id}}">
-                <div class="row mb-3">
-                  <label for="inputEmail" class="col-sm-2 col-form-label">Nama</label>
-                  <div class="col-sm-10">
-                  <select id="siswa" name="siswa_id" class="form-control bg-light" style="color:black;">
-                @foreach($siswa as $s)
-                <option value="{{ $s->id }}">{{ $s->nama }}</option>
-                @endforeach
-                </select>
-                  </div>
-                </div>
-                <div class="row mb-3">
-                  <label for="inputEmail" class="col-sm-2 col-form-label">Kategori Umur</label>
-                  <div class="col-sm-10">
-                   <select id="kategoriumur" name="kategoriumur_id" class="form-control bg-light" style="color:black;">
-                @foreach($data as $k)
-                <option value="{{ $k->id }}">{{ $k->kategori_umur }}</option>
-                @endforeach
-                </select>
-                  </div>
-                </div>
-                <button type="submit" class="btn btn-primary">Selanjutnya</button>
+            </div>
+          </div>
 
-              </form><!-- End General Form Elements -->
+        </div>
+      </div>
+    </section>
 
   </main><!-- End #main -->
 

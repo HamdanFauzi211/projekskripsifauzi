@@ -4,6 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
+
+use App\Models\Siswa;
 
 class Siswa extends Model
 {
@@ -12,7 +15,25 @@ class Siswa extends Model
         'id',
         'nis',
         'nama',
-        'jenis_kelamin',
-        'tahun_ajaran_id',
+        'umur',
+        'jenis_kelamin'
     ];
+
+    protected $table = 'siswas';
+
+    public static function index()
+    {
+        return Siswa::all();
+    }
+
+    public static function store(Request $request)
+    {
+        Siswa::create($request->all());
+    }
+
+    public static function edit(Request $request, Siswa $siswa)
+    {
+        $siswa->update($request->all());
+    }
+
 }

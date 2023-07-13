@@ -19,7 +19,7 @@ return new class extends Migration
             [
                 'Normal',
                 'Suspect',
-                'Untastable (Tidak dapat diuji)'
+                'Untestable/Tidak dapat diuji'
             ]);
             $table->string('keterangan');
             $table->timestamps();

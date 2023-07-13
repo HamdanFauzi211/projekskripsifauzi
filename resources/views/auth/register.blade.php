@@ -41,15 +41,18 @@
                             </div>
                         </div>
 
-                        <div class="form-group">
-    <label for="role">Role:</label>
-    <select name="role_id" id="role_id" class="form-control">
-        <option value="1">Admin</option>
-        <option value="2">Guru</option>
-        <option value="3">Pakar</option>
-        <option value="4">Orang Tua</option>
-    </select>
-</div>
+                        <div class="row mb-3">
+                        <label for="role" class="col-md-4 col-form-label text-md-end">Role</label>              
+                                 <div class="col-md-6">
+                                    <select name="role" id="role" class="form-control">
+                                    <option value="1">Admin</option>
+                                    <option value="2">Guru</option>
+                                    <option value="3">Pakar</option>
+                                    <option value="4">Orang Tua</option>
+                                 </select>
+                                </div>  
+                        </div>
+
 
                         <!-- <div class="row mb-3">
                             <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>

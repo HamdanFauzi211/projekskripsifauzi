@@ -16,16 +16,18 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('nama');
-            // $table->string('email')->unique();
+            $table->string('no_hp', 16);
             $table->string('username');
             $table->string('password');
+            $table->enum('role',
+            [
+                'Admin',
+                'Guru',
+                'Pakar',
+                'OrangTua'
+            ]);
             $table->rememberToken();
-            $table->string('no_hp', 16);
-            $table->unsignedBigInteger('role_id');
             $table->timestamps();
-
-            
-            $table->foreign('role_id')->references('id')->on('roles');
         });
     }
 

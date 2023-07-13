@@ -18,10 +18,10 @@ return new class extends Migration
             $table->enum('nilai',
             [
                 'Lulus',
-                'Tidak Lulus'
+                'Tidak Lulus',
+                'Menolak'
             ]);
             $table->string('skor');
-            $table->string('nama_guru');
             $table->unsignedBigInteger('item_perintah_id');
             $table->unsignedBigInteger('siswa_id');
             $table->unsignedBigInteger('jadwal_penilaian_id');

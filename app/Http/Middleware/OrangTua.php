@@ -4,9 +4,8 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use Auth;
 
-class Admin
+class OrangTua
 {
     /**
      * Handle an incoming request.
@@ -21,7 +20,7 @@ class Admin
             return redirect()->route('login');
         }
 
-        if (Auth::user()->role == 'Admin') {
+        if (Auth::user()->role == 'OrangTua') {
             return $next($request);
         }
 

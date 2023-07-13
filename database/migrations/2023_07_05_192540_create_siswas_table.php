@@ -22,9 +22,8 @@ return new class extends Migration
                 'Laki-laki',
                 'Perempuan'
             ]);
-            $table->unsignedBigInteger('tahun_ajaran_id');
+            $table->date('umur');
             $table->timestamps();
-            $table->foreign('tahun_ajaran_id')->references('id')->on('tahun_ajarans');
         });
     }
 

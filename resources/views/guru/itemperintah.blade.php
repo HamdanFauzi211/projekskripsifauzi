@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -118,78 +120,52 @@
     </nav><!-- End Icons Navigation -->
   </header><!-- End Header -->
 
-  <!-- ======= Sidebar ======= -->
-  <aside id="sidebar" class="sidebar">
+    <!-- ======= Sidebar ======= -->
+    <aside id="sidebar" class="sidebar">
 
-    <ul class="sidebar-nav" id="sidebar-nav">
-      <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-journal-text"></i><span>Master Data</span><i class="bi bi-chevron-down ms-auto"></i>
+<ul class="sidebar-nav" id="sidebar-nav">
+  <li class="nav-item">
+    <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
+      <i class="bi bi-layout-text-window-reverse"></i><span>Data Master</span><i class="bi bi-chevron-down ms-auto"></i>
+    </a>
+    <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+      <li>
+        <a href="{{url('guru/kategoriumur')}}">
+          <i class="bi bi-circle"></i><span>Kategori Umur</span>
         </a>
-        <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-
-          <li>
-          <a href="{{ url('/dataanak') }}">
-              <i class="bi bi-circle"></i><span>Data Anak</span>
-            </a>
-          </li>
-
-          <li>
-            <a href="forms-elements.html">
-              <i class="bi bi-circle"></i><span>Data Tumbuh Kembang Anak</span>
-            </a>
-          </li>
-
-          <li>
-            <a href="forms-elements.html">
-              <i class="bi bi-circle"></i><span>Data Status Gizi Anak</span>
-            </a>
-          </li>
-
-
-          <li>
-        </ul>
-      </li><!-- End Forms Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-layout-text-window-reverse"></i><span>Tables</span><i class="bi bi-chevron-down ms-auto"></i>
+      </li>
+      <li>
+      <a href="{{url('guru/aspekperkembangan')}}">
+          <i class="bi bi-circle"></i><span>Aspek Perkembangan</span>
         </a>
-        <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-          <li>
-            <a href="tables-general.html">
-              <i class="bi bi-circle"></i><span>General Tables</span>
-              
-            </a>
-          </li>
-          <li>
-            <a href="tables-data.html">
-              <i class="bi bi-circle"></i><span>Data Tables</span>
-            </a>
-          </li>
-        </ul>
-      </li><!-- End Tables Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-register.html">
-          <i class="bi bi-card-list"></i>
-          <span>Register</span>
+      </li>
+      <li>
+      <a href="{{url('/guru/itemperintah')}}">
+          <i class="bi bi-circle"></i><span>Item Perintah</span>
         </a>
-      </li><!-- End Register Page Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-login.html">
-          <i class="bi bi-box-arrow-in-right"></i>
-          <span>Login</span>
-        </a>
-      </li><!-- End Login Page Nav -->
+      </li>
     </ul>
 
-  </aside><!-- End Sidebar-->
+    <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
+      <i class="bi bi-layout-text-window-reverse"></i><span>Jadwal</span><i class="bi bi-chevron-down ms-auto"></i>
+    </a>
+    <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+      <li>
+      <a href="{{url('guru/jadwalpenilaian')}}">
+          <i class="bi bi-circle"></i><span>Jadwal Penilaian</span>
+        </a>
+      </li>
+    </ul>
+  </li><!-- End Tables Nav -->
+</ul>
+  </li><!-- End Tables Nav -->
+</ul>
+
+</aside><!-- End Sidebar-->
 
   <main id="main" class="main">
 
-    <div class="pagetitle">
+    <!-- <div class="pagetitle">
       <h1>Dashboard</h1>
       <nav>
         <ol class="breadcrumb">
@@ -197,7 +173,7 @@
           <li class="breadcrumb-item active">Dashboard</li>
           
         </ol>
-      </nav>
+      </nav> -->
     </div><!-- End Page Title -->
 
     <section class="section">
@@ -206,59 +182,37 @@
 
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title text-center" >Sistem Pengukuran Tumbuh Kembang Anak</h5>
+              <h5 class="card-title">Data tabel item perintah</h5>
+             
+              <!-- Table with stripped rows -->
+              <table class="table datatable">
+                <thead>
+                  <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Item Perintah</th>
+                    <th scope="col">Aspek Perkembangan</th>
+                    <th scope="col">Kategori Umur</th>
+                  </tr>
+                  @foreach ($itemperintah as $i)
+                </thead>
+                <body>
+                  <tr>
+                    <td>{{$i -> id }}</td>
+                    <td>{{$i -> perintah }}</td>
+                    <td>{{$i -> aspekperkembangan->nama_aspek }}</td>
+                    <td>{{$i->kategoriumur->kategori_umur }}</td>
+                  
+                 @endforeach
+                </body>
+              </table>
+              <!-- End Table with stripped rows -->
 
-              <!-- General Form Elements -->
-              <form action="{{route('penilaian.screening.langkah2.store')}}" method="POST">
-                @csrf
-                <input type="hidden" name="aspek_perkembangan" value={{$data}}>
-                <input type="hidden" name="kategori_umur_id" value="{{$kategori_umur_id}}">
-                <input type="hidden" name="siswa_id" value="{{$siswa_id}}">
-                <input type="hidden" name="jadwal_penilaian_id" value="{{$jadwal_penilaian_id}}">
-              <h5 >Motorik Kasar</h5>
-                <div class="row mb-3">
-                @foreach($data->get(0)->itemperintah as $i)
-                  <label for="inputEmail" class="col-form-label">{{$i->perintah}}</label>
-                  <select name="motorik_kasar[]" class="form-control bg-light" style="color:black;">
-                    <option value="true">Lulus</option>
-                    <option value="false">Tidak Lulus</option>
-                </select>
-                @endforeach
-                </div>
-                <h5 >Motorik Halus</h5>
-                <div class="row mb-3">
-                @foreach($data->get(1)->itemperintah as $i)
-                  <label for="inputEmail" class="col-form-label">{{$i->perintah}}</label>
-                  <select name="motorik_halus[]" class="form-control bg-light" style="color:black;">
-                    <option value="true">Lulus</option>
-                    <option value="false">Tidak Lulus</option>
-                </select>
-                @endforeach
-                </div>
-                <h5 >Bicara dan Bahasa</h5>
-                <div class="row mb-3">
-                @foreach($data->get(2)->itemperintah as $i)
-                  <label for="inputEmail" class="col-form-label">{{$i->perintah}}</label>
-                  <select name="bicara_dan_bahasa[]" class="form-control bg-light" style="color:black;">
-                    <option value="true">Lulus</option>
-                    <option value="false">Tidak Lulus</option>
-                </select>
-                @endforeach
-                </div>
-                <h5 >Sosial dan Kemandirian</h5>
-                <div class="row mb-3">
-                @foreach($data->get(3)->itemperintah as $i)
-                  <label for="inputEmail" class="col-form-label">{{$i->perintah}}</label>
-                  <select name="sosial_dan_kemandirian[]" class="form-control bg-light" style="color:black;">
-                    <option value="true">Lulus</option>
-                    <option value="false">Tidak Lulus</option>
-                </select>
-                @endforeach
-                </div>
-                </div>
-                <button type="submit" class="btn btn-primary">Hitung</button>
+            </div>
+          </div>
 
-              </form><!-- End General Form Elements -->
+        </div>
+      </div>
+    </section>
 
   </main><!-- End #main -->
 

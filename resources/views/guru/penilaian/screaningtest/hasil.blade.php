@@ -120,75 +120,48 @@
         </nav><!-- End Icons Navigation -->
     </header><!-- End Header -->
 
-    <!-- ======= Sidebar ======= -->
-    <aside id="sidebar" class="sidebar">
+     <!-- ======= Sidebar ======= -->
+     <aside id="sidebar" class="sidebar">
 
-        <ul class="sidebar-nav" id="sidebar-nav">
-            <li class="nav-item">
-                <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
-                    <i class="bi bi-journal-text"></i><span>Master Data</span><i class="bi bi-chevron-down ms-auto"></i>
-                </a>
-                <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+<ul class="sidebar-nav" id="sidebar-nav">
+  <li class="nav-item">
+    <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
+      <i class="bi bi-layout-text-window-reverse"></i><span>Data Master</span><i class="bi bi-chevron-down ms-auto"></i>
+    </a>
+    <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+      <li>
+        <a href="{{url('guru/kategoriumur')}}">
+          <i class="bi bi-circle"></i><span>Kategori Umur</span>
+        </a>
+      </li>
+      <li>
+      <a href="{{url('guru/aspekperkembangan')}}">
+          <i class="bi bi-circle"></i><span>Aspek Perkembangan</span>
+        </a>
+      </li>
+      <li>
+      <a href="{{url('/guru/itemperintah')}}">
+          <i class="bi bi-circle"></i><span>Item Perintah</span>
+        </a>
+      </li>
+    </ul>
 
-                    <li>
-                        <a href="{{ url('/dataanak') }}">
-                            <i class="bi bi-circle"></i><span>Data Anak</span>
-                        </a>
-                    </li>
+    <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
+      <i class="bi bi-layout-text-window-reverse"></i><span>Jadwal</span><i class="bi bi-chevron-down ms-auto"></i>
+    </a>
+    <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+      <li>
+      <a href="{{url('guru/jadwalpenilaian')}}">
+          <i class="bi bi-circle"></i><span>Jadwal Penilaian</span>
+        </a>
+      </li>
+    </ul>
+  </li><!-- End Tables Nav -->
+</ul>
+  </li><!-- End Tables Nav -->
+</ul>
 
-                    <li>
-                        <a href="forms-elements.html">
-                            <i class="bi bi-circle"></i><span>Data Tumbuh Kembang Anak</span>
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="forms-elements.html">
-                            <i class="bi bi-circle"></i><span>Data Status Gizi Anak</span>
-                        </a>
-                    </li>
-
-
-                    <li>
-                </ul>
-            </li><!-- End Forms Nav -->
-
-            <li class="nav-item">
-                <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
-                    <i class="bi bi-layout-text-window-reverse"></i><span>Tables</span><i
-                        class="bi bi-chevron-down ms-auto"></i>
-                </a>
-                <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-                    <li>
-                        <a href="tables-general.html">
-                            <i class="bi bi-circle"></i><span>General Tables</span>
-
-                        </a>
-                    </li>
-                    <li>
-                        <a href="tables-data.html">
-                            <i class="bi bi-circle"></i><span>Data Tables</span>
-                        </a>
-                    </li>
-                </ul>
-            </li><!-- End Tables Nav -->
-
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="pages-register.html">
-                    <i class="bi bi-card-list"></i>
-                    <span>Register</span>
-                </a>
-            </li><!-- End Register Page Nav -->
-
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="pages-login.html">
-                    <i class="bi bi-box-arrow-in-right"></i>
-                    <span>Login</span>
-                </a>
-            </li><!-- End Login Page Nav -->
-        </ul>
-
-    </aside><!-- End Sidebar-->
+</aside><!-- End Sidebar-->
 
     <main id="main" class="main">
 
@@ -222,6 +195,7 @@
                                     <thead>
                                         <tr>
                                             <th scope="col">Item Perintah</th>
+                                            <th scope="col">Nilai</th>
                                             <th scope="col">Skor</th>
                                         </tr>
                                     </thead>
@@ -230,6 +204,7 @@
                                         @foreach ($motorik_kasar as $d)
                                             <tr>
                                                 <td>{{ $d->perintah }}</td>
+                                                <td>{{ $d->penilaian->get(0)->nilai }}</td>
                                                 <td>{{ number_format((float)$d->penilaian->get(0)->skor, 2, '.', '') }}</td>
                                             </tr>
                                         @endforeach
@@ -247,9 +222,31 @@
                                                 @endif
                                             </td>
                                         </tr>
+                                        <tr>
+                                        <th scope="col">Keterangan</th>
+                                        <td>
+                                        <td>
+                                                @if ($total_motorik_kasar >= 50)
+                                                    "Ananda lolos melakukan 50-100% test yg dilakukan. Anak dapat melakukan tugas perkembangan sesuai usia  pada tahap tumbuh kembangnya"
+                                                @else
+                                                    "Ananda lolos melakukan < 50% test yg dilakukan"
+                                                @endif
+                                            </td>
+                                        </td>
+                                        <tr>
+                                        <th scope="col">Arti</th>
+                                        <td>
+                                        <td>
+                                                @if ($total_motorik_kasar >= 50)
+                                                    "Kategori dimana anak dapat melakukan semua tugas perkembangan sesuai usia pada tahap tumbuh kembangnya"
+                                                @else
+                                                    "Anak belum dapat melakukan semua tugas perkembangan pada usianya. Pada kategori caution anak tidak dapat melakukan tugas dapat dimungkinkan karena anak mengantuk atau leleah saat menjalani tes tahap tumbuh kembang"
+                                                @endif
+                                            </td>
+                                        </td>
+                                    </tr>
                                 </table>
                             </div>
-
                             @php
                                 $motorik_halus = $data->where('aspek_perkembangan_id', 2);
                                 $total_motorik_halus = min($motorik_halus->pluck('penilaian.0.skor')->sum(), 100);
@@ -260,6 +257,7 @@
                                     <thead>
                                         <tr>
                                             <th scope="col">Item Perintah</th>
+                                            <th scope="col">Nilai</th>
                                             <th scope="col">Skor</th>
                                         </tr>
                                     </thead>
@@ -267,6 +265,7 @@
                                         @foreach ($motorik_halus as $d)
                                             <tr>
                                                 <td>{{ $d->perintah }}</td>
+                                                <td>{{ $d->penilaian->get(0)->nilai }}</td>
                                                 <td>{{ number_format((float)$d->penilaian->get(0)->skor, 2, '.', '') }}</td>
                                             </tr>
                                         @endforeach
@@ -284,6 +283,28 @@
                                                 @endif
                                             </td>
                                         </tr>
+                                        <th scope="col">Keterangan</th>
+                                        <td>
+                                        <td>
+                                                @if ($total_motorik_halus >= 50)
+                                                    "Ananda lolos melakukan 50-100% test yg dilakukan. Anak dapat melakukan tugas perkembangan sesuai usia  pada tahap tumbuh kembangnya"
+                                                @else
+                                                "Ananda lolos melakukan < 50% test yg dilakukan"
+                                                @endif
+                                            </td>
+                                        </td>
+                                        <tr>
+                                        <th scope="col">Arti</th>
+                                        <td>
+                                        <td>
+                                                @if ($total_motorik_halus >= 50)
+                                                    "Kategori dimana anak dapat melakukan semua tugas perkembangan sesuai usia pada tahap tumbuh kembangnya"
+                                                @else
+                                                    "Anak belum dapat melakukan semua tugas perkembangan pada usianya. Pada kategori caution anak tidak dapat melakukan tugas dapat dimungkinkan karena anak mengantuk atau leleah saat menjalani tes tahap tumbuh kembang"
+                                                @endif
+                                            </td>
+                                        </td>
+                                    </tr>
                                 </table>
                             </div>
 
@@ -297,6 +318,7 @@
                                     <thead>
                                         <tr>
                                             <th scope="col">Item Perintah</th>
+                                            <th scope="col">Nilai</th>
                                             <th scope="col">Skor</th>
                                         </tr>
                                     </thead>
@@ -304,6 +326,8 @@
                                         @foreach ($bicara_dan_bahasa as $d)
                                             <tr>
                                                 <td>{{ $d->perintah }}</td>
+                                                <td>{{ $d->penilaian->get(0)->nilai }}</td>
+
                                                 <td>{{ number_format((float)$d->penilaian->get(0)->skor, 2, '.', '') }}</td>
                                             </tr>
                                         @endforeach
@@ -321,6 +345,28 @@
                                                 @endif
                                             </td>
                                         </tr>
+                                        <th scope="col">Keterangan</th>
+                                        <td>
+                                        <td>
+                                                @if ($total_bicara_dan_bahasa >= 50)
+                                                    "Ananda lolos melakukan 50-100% test yg dilakukan. Anak dapat melakukan tugas perkembangan sesuai usia  pada tahap tumbuh kembangnya"
+                                                @else
+                                                "Ananda lolos melakukan < 50% test yg dilakukan"
+                                                @endif
+                                            </td>
+                                        </td>
+                                        <tr>
+                                        <th scope="col">Arti</th>
+                                        <td>
+                                        <td>
+                                                @if ($total_bicara_dan_bahasa >= 50)
+                                                    "Kategori dimana anak dapat melakukan semua tugas perkembangan sesuai usia pada tahap tumbuh kembangnya"
+                                                @else
+                                                    "Anak belum dapat melakukan semua tugas perkembangan pada usianya. Pada kategori caution anak tidak dapat melakukan tugas dapat dimungkinkan karena anak mengantuk atau leleah saat menjalani tes tahap tumbuh kembang"
+                                                @endif
+                                            </td>
+                                        </td>
+                                    </tr>
                                 </table>
                             </div>
 
@@ -334,6 +380,7 @@
                                     <thead>
                                         <tr>
                                             <th scope="col">Item Perintah</th>
+                                            <th scope="col">Nilai</th>
                                             <th scope="col">Skor</th>
                                         </tr>
                                     </thead>
@@ -341,6 +388,7 @@
                                         @foreach ($sosial_dan_kemandirian as $d)
                                             <tr>
                                                 <td>{{ $d->perintah }}</td>
+                                                <td>{{ $d->penilaian->get(0)->nilai }}</td>
                                                 <td>{{ number_format((float)$d->penilaian->get(0)->skor, 2, '.', '') }}</td>
                                             </tr>
                                         @endforeach
@@ -358,6 +406,28 @@
                                                 @endif
                                             </td>
                                         </tr>
+                                        <th scope="col">Keterangan</th>
+                                        <td>
+                                        <td>
+                                                @if ($total_sosial_dan_kemandirian >= 50)
+                                                    "Ananda lolos melakukan 50-100% test yg dilakukan. Anak dapat melakukan tugas perkembangan sesuai usia  pada tahap tumbuh kembangnya"
+                                                @else
+                                                "Ananda lolos melakukan < 50% test yg dilakukan"
+                                                @endif
+                                            </td>
+                                        </td>
+                                        <tr>
+                                        <th scope="col">Arti</th>
+                                        <td>
+                                        <td>
+                                                @if ($total_sosial_dan_kemandirian >= 50)
+                                                    "Kategori dimana anak dapat melakukan semua tugas perkembangan sesuai usia pada tahap tumbuh kembangnya"
+                                                @else
+                                                    "Anak belum dapat melakukan semua tugas perkembangan pada usianya. Pada kategori caution anak tidak dapat melakukan tugas dapat dimungkinkan karena anak mengantuk atau leleah saat menjalani tes tahap tumbuh kembang"
+                                                @endif
+                                            </td>
+                                        </td>
+                                    </tr>
                                 </table>
                             </div>
                             <a href="{{route('penilaian.screening.hasil.kesimpulan.index', ['jadwal_penilaian_id' =>$jadwal_penilaian_id, 'siswa_id' => $siswa_id])}}" class="btn btn-primary">Tarik Kesimpulan</a>
@@ -371,7 +441,7 @@
     <!-- ======= Footer ======= -->
     <footer id="footer" class="footer">
         <div class="copyright">
-            &copy; Copyright <strong><span>NiceAdmin</span></strong>. All Rights Reserved
+            &copy; Copyright 2022<strong><span>Paud Little Care</span></strong>. All Rights Reserved
         </div>
         <div class="credits">
             <!-- All the links in the footer should remain intact. -->

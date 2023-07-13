@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -123,82 +121,74 @@
   <!-- ======= Sidebar ======= -->
   <aside id="sidebar" class="sidebar">
 
-  <ul class="sidebar-nav" id="sidebar-nav">
+    <ul class="sidebar-nav" id="sidebar-nav">
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-layout-text-window-reverse"></i><span>Kumpulan Data</span><i class="bi bi-chevron-down ms-auto"></i>
+          <i class="bi bi-layout-text-window-reverse"></i><span>Data Master</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="{{url('/kategoriumur')}}">
+            <a href="{{url('guru/kategoriumur')}}">
               <i class="bi bi-circle"></i><span>Kategori Umur</span>
             </a>
           </li>
           <li>
-          <a href="{{url('/aspekperkembangan')}}">
+          <a href="{{url('guru/aspekperkembangan')}}">
               <i class="bi bi-circle"></i><span>Aspek Perkembangan</span>
             </a>
           </li>
           <li>
-          <a href="{{url('/itemperintah')}}">
+          <a href="{{url('/guru/itemperintah')}}">
               <i class="bi bi-circle"></i><span>Item Perintah</span>
             </a>
           </li>
         </ul>
+
+        <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-layout-text-window-reverse"></i><span>Jadwal</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+          <a href="{{url('guru/jadwalpenilaian')}}">
+              <i class="bi bi-circle"></i><span>Jadwal Penilaian</span>
+            </a>
+          </li>
+        </ul>
       </li><!-- End Tables Nav -->
-  
+    </ul>
+      </li><!-- End Tables Nav -->
     </ul>
 
   </aside><!-- End Sidebar-->
 
   <main id="main" class="main">
 
-    <!-- <div class="pagetitle">
-      <h1>Dashboard</h1>
+    <div class="pagetitle">
+      <h1>  <h2 class="center-text" style="text-align: center;">Halaman {{ Auth::user()->nama }}</h2>/h1>
       <nav>
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-          <li class="breadcrumb-item active">Dashboard</li>
-          
-        </ol>
-      </nav> -->
+  
+      </nav>
     </div><!-- End Page Title -->
 
-    <section class="section">
+    <section class="section dashboard">
       <div class="row">
-        <div class="col-lg-12">
 
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">Data tabel item perintah</h5>
-             
-              <!-- Table with stripped rows -->
-              <table class="table datatable">
-                <thead>
-                  <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">Item Perintah</th>
-                    <th scope="col">Aspek Perkembangan</th>
-                    <th scope="col">Kategori Umur</th>
-                  </tr>
-                  @foreach ($itemperintah as $i)
-                </thead>
-                <body>
-                  <tr>
-                    <td>{{$i -> id }}</td>
-                    <td>{{$i -> perintah }}</td>
-                    <td>{{$i -> aspekperkembangan->nama_aspek }}</td>
-                    <td>{{$i->kategoriumur->kategori_umur }}</td>
-                  
-                 @endforeach
-                </body>
-              </table>
-              <!-- End Table with stripped rows -->
+        <!-- Left side columns -->
+        <div class="col-lg-8">
+          <div class="row">
+          </div>
+        </div><!-- End Left side columns -->
+
+        <!-- Right side columns -->
+        <div class="col-lg-4">
+
+              </div><!-- End sidebar recent posts-->
 
             </div>
-          </div>
+          </div><!-- End News & Updates -->
 
-        </div>
+        </div><!-- End Right side columns -->
+
       </div>
     </section>
 
@@ -207,14 +197,7 @@
   <!-- ======= Footer ======= -->
   <footer id="footer" class="footer">
     <div class="copyright">
-      &copy; Copyright <strong><span>NiceAdmin</span></strong>. All Rights Reserved
-    </div>
-    <div class="credits">
-      <!-- All the links in the footer should remain intact. -->
-      <!-- You can delete the links only if you purchased the pro version. -->
-      <!-- Licensing information: https://bootstrapmade.com/license/ -->
-      <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ -->
-      Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+      &copy; Copyright <strong><span>Hamdan Fauzi</span></strong>. All Rights Reserved
     </div>
   </footer><!-- End Footer -->
 

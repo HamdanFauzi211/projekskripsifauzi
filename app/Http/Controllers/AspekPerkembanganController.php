@@ -10,6 +10,6 @@ class AspekPerkembanganController extends Controller
 {
     function show() {
         $data=AspekPerkembangan::all();
-        return view('aspekperkembangan',['aspekperkembangan'=>$data]);
+        return view('guru.aspekperkembangan',['aspekperkembangan'=>$data]);
     }
 }

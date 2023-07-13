@@ -12,25 +12,25 @@
   <meta content="" name="keywords">
 
   <!-- Favicons -->
-  <link href="assets/img/logolittlepedia.png" rel="icon">
-  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
-  <link rel="shortcut icon" href="assets/img/logolittlepedia2.png">
+  <link href="/assets/img/logolittlepedia.png" rel="icon">
+  <link href="/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+  <link rel="shortcut icon" href="/assets/img/logolittlepedia2.png">
 
   <!-- Google Fonts -->
   <link href="https://fonts.gstatic.com" rel="preconnect">
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
   <!-- Vendor CSS Files -->
-  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-  <link href="assets/vendor/quill/quill.snow.css" rel="stylesheet">
-  <link href="assets/vendor/quill/quill.bubble.css" rel="stylesheet">
-  <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
-  <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
+  <link href="/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="/assets/vendor/quill/quill.snow.css" rel="stylesheet">
+  <link href="/assets/vendor/quill/quill.bubble.css" rel="stylesheet">
+  <link href="/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+  <link href="/assets/vendor/simple-datatables/style.css" rel="stylesheet">
 
   <!-- Template Main CSS File -->
-  <link href="assets/css/style.css" rel="stylesheet">
+  <link href="/assets/css/style.css" rel="stylesheet">
 
   <!-- =======================================================
   * Template Name: NiceAdmin
@@ -48,7 +48,7 @@
 
     <div class="d-flex align-items-center justify-content-between">
       <a class="logo d-flex align-items-center">
-        <img src="assets/img/logolittlepedia.png" alt="">
+        <img src="/assets/img/logolittlepedia.png" alt="">
 
       </a>
       <i class="bi bi-list toggle-sidebar-btn"></i>
@@ -64,7 +64,7 @@
         </li><!-- End Search Icon-->
 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-            <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
+            <img src="/assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
             <span class="d-none d-md-block dropdown-toggle ps-2">K. Anderson</span>
           </a><!-- End Profile Iamge Icon -->
 
@@ -169,31 +169,48 @@
 
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">Datatables</h5>
-              <p>Add lightweight datatables to your project with using the <a href="https://github.com/fiduswriter/Simple-DataTables" target="_blank">Simple DataTables</a> library. Just add <code>.datatable</code> class name to any table you wish to conver to a datatable</p>
-
-              <!-- Table with stripped rows -->
-              <table class="table datatable">
-                <thead>
-                  <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">Aspek Perkembangan</th>
-                  </tr>
-                  @foreach ($aspekperkembangan as $a)
-                </thead>
-                <body>
-                  <tr>
-                    <td>{{ $a->id}}</td>
-                    <td>{{ $a->nama_aspek}}</td>
-                 @endforeach
-                </body>
-              </table>
-              <!-- End Table with stripped rows -->
-
-            </div>
+                <!-- TOMBOL TAMBAH DATA -->
+                <div class="pb-3">
+                  <a href="{{ route('siswa.create') }}" class="btn btn-primary">+ Tambah Data</a>
+                </div>
+          
+                <table class="table datatable">
+                    <thead>
+                        <tr>
+                            <th class="col-md-1">ID</th>
+                            <th class="col-md-3">NIS</th>
+                            <th class="col-md-4">Nama</th>
+                            <th class="col-md-2">Tanggal </th>
+                            <th class="col-md-2">Jenis Kelamin</th>
+                            <th class="col-md-2">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    @foreach($siswa as $s)
+                    <tr>
+                      <td>{{ $s->id }}</td>
+                      <td>{{ $s->nis }}</td>
+                      <td>{{ $s->nama }}</td>
+                      <td>{{ $s->umur }}</td>
+                      <td>{{ $s->jenis_kelamin }}</td>
+                      <td class="text-center">
+                  <a href="{{ route('siswa.edit', $s->id) }}" class="btn btn-primary"><i class="fa fa-edit"></i>
+                    Edit</a>
+                  <form action="{{ route('siswa.destroy', $s->id) }}" method="POST" class="d-inline">
+                  @csrf
+                  @method('DELETE')
+                    <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i>
+                      Delete</a>
+                  </form>
+                </td>
+              </tr>
+              @endforeach
+            </tbody>
+                </table>
+               
           </div>
 
-        </div>
+          </div>
       </div>
     </section>
 
@@ -216,17 +233,17 @@
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
   <!-- Vendor JS Files -->
-  <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
-  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/chart.js/chart.umd.js"></script>
-  <script src="assets/vendor/echarts/echarts.min.js"></script>
-  <script src="assets/vendor/quill/quill.min.js"></script>
-  <script src="assets/vendor/simple-datatables/simple-datatables.js"></script>
-  <script src="assets/vendor/tinymce/tinymce.min.js"></script>
-  <script src="assets/vendor/php-email-form/validate.js"></script>
+  <script src="/assets/vendor/apexcharts/apexcharts.min.js"></script>
+  <script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="/assets/vendor/chart.js/chart.umd.js"></script>
+  <script src="/assets/vendor/echarts/echarts.min.js"></script>
+  <script src="/assets/vendor/quill/quill.min.js"></script>
+  <script src="/assets/vendor/simple-datatables/simple-datatables.js"></script>
+  <script src="/assets/vendor/tinymce/tinymce.min.js"></script>
+  <script src="/assets/vendor/php-email-form/validate.js"></script>
 
   <!-- Template Main JS File -->
-  <script src="assets/js/main.js"></script>
+  <script src="/assets/js/main.js"></script>
 
 </body>
 

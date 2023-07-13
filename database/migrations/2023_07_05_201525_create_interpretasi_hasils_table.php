@@ -17,10 +17,8 @@ return new class extends Migration
             $table->id();
             $table->enum('kesimpulan',
             [
-                'Advance',
                 'Normal',
-                'Caution',
-                'Delay'
+                'Caution/Peringatan'
             ]);
             $table->string('keterangan');
             $table->string('arti');

@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\JadwalPenilaian;
+use App\Models\Siswa;
 
-class JadwalPenilaianController extends Controller
+
+class SiswaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +15,7 @@ class JadwalPenilaianController extends Controller
      */
     public function index()
     {
-        $data=JadwalPenilaian::with('kategoriumur')->get();
-        return view('guru.jadwalpenilaian',['jadwalpenilaian'=>$data]);
+        return view('admin.siswa.index', ['siswa' => Siswa::index()]);
     }
 
     /**
@@ -25,7 +25,7 @@ class JadwalPenilaianController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.siswa.create');
     }
 
     /**
@@ -34,10 +34,20 @@ class JadwalPenilaianController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+     public function store(Request $request)
     {
-        //
+        
+    Siswa::create([
+        'id' => $request->id,
+        'nis' => $request->nis,
+        'nama' => $request->nama,
+        'umur' => $request->umur,
+        'jenis_kelamin' => $request->jenis_kelamin
+    ]);
+
+    return redirect()->route('siswa.index');
     }
+
 
     /**
      * Display the specified resource.
@@ -56,9 +66,9 @@ class JadwalPenilaianController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Siswa $siswa)
     {
-        //
+        return view('admin.siswa.edit', compact('siswa'));
     }
 
     /**
@@ -68,9 +78,19 @@ class JadwalPenilaianController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Siswa $siswa)
     {
-        //
+        $siswa = Siswa::findOrFail($siswa->id);
+
+        $siswa->update([
+            'id' => $request->id,
+            'nis' => $request->nis,
+            'nama' => $request->nama,
+            'umur' => $request->umur,
+            'jenis_kelamin' => $request->jenis_kelamin
+        ]);
+
+        return redirect()->route('siswa.index');
     }
 
     /**
@@ -79,8 +99,10 @@ class JadwalPenilaianController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Siswa $siswa)
     {
-        //
+        $siswa->delete();
+
+        return redirect()->back();
     }
 }

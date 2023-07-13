@@ -10,6 +10,6 @@ class KategoriUmurController extends Controller
 {
     function show() {
         $data=KategoriUmur::all();
-        return view('kategoriumur',['kategoriumur'=>$data]);
+        return view('guru.kategoriumur',['kategoriumur'=>$data]);
     }
 }

@@ -12,6 +12,6 @@ class ItemPerintahController extends Controller
 {
     function show() {
         $data=ItemPerintah::with('kategoriumur')->get();
-        return view('itemperintah',['itemperintah'=>$data]);
+        return view('guru.itemperintah',['itemperintah'=>$data]);
     }
 }

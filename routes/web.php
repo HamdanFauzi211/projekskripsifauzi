@@ -8,8 +8,12 @@ use App\Http\Controllers\LatihanController;
 use App\Http\Controllers\JadwalPenilaianController;
 use App\Http\Controllers\PenilaianController;
 use App\Http\Controllers\Auth\RegisterController;
-use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\SiswaController;
+// use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -31,26 +35,30 @@ Route::get('/login', function () {
     return view('login');
 });
 
-Route::get('/create', function () {
-    return view('formtambahdata');
-});
 
 
+// Route::middleware(['auth', 'Guru'])->group(function () {
 
+    Route::get('guru/index', [AuthController::class, 'GuruIndex']);
 
-Route::get('itemperintah',[ItemPerintahController::class, 'Show']);
-Route::get('kategoriumur',[KategoriUmurController::class, 'Show']);
-Route::get('aspekperkembangan',[AspekPerkembanganController::class, 'Show']);
+    Route::get('guru/itemperintah',[ItemPerintahController::class, 'Show']);
+    Route::get('guru/kategoriumur',[KategoriUmurController::class, 'Show']);
+    Route::get('guru/aspekperkembangan',[AspekPerkembanganController::class, 'Show']);
+    Route::get('guru/datasiswa',[SiswaController::class, 'show']);
+    Route::resource('guru/jadwalpenilaian', JadwalPenilaianController::class);
+    Route::get('guru/penilaian/screening/langkah1/{jadwal_penilaian_id}',[PenilaianController::class, 'indexLangkah1'])->name('penilaian.screening.langkah1.index');
+    Route::post('guru/penilaian/screening/langkah1',[PenilaianController::class, 'storeLangkah1'])->name('penilaian.screening.langkah1.store');
+    Route::get('guru/penilaian/screening/langkah2/{jadwal_penilaian_id}/{siswa_id}/{kategori_umur_id}',[PenilaianController::class, 'indexLangkah2'])->name('penilaian.screening.langkah2.index');
+    Route::post('guru/penilaian/screening/langkah2',[PenilaianController::class, 'storeLangkah2'])->name('penilaian.screening.langkah2.store');
+    Route::get('guru/penilaian/screening/hasil/{jadwal_penilaian_id}/{siswa_id}', [PenilaianController::class, 'hasilpenilaian'])->name('penilaian.screening.hasil.index');
+    Route::get('guru/penilaian/screening/hasil/kesimpulan/{jadwal_penilaian_id}/{siswa_id}', [PenilaianController::class, 'hasilPenilaianAkhir'])->name('penilaian.screening.hasil.kesimpulan.index');
+
+// });
+// });
+
 Route::get('latihan',[LatihanController::class, 'Show']);
 Route::post('latihan/proces',[LatihanController::class, 'proses'])->name('latihan.proses');
-Route::resource('jadwalpenilaian', JadwalPenilaianController::class);
-Route::get('penilaian/screening/langkah1/{jadwal_penilaian_id}',[PenilaianController::class, 'indexLangkah1'])->name('penilaian.screening.langkah1.index');
-Route::post('penilaian/screening/langkah1',[PenilaianController::class, 'storeLangkah1'])->name('penilaian.screening.langkah1.store');
-Route::get('penilaian/screening/langkah2/{jadwal_penilaian_id}/{siswa_id}/{kategori_umur_id}',[PenilaianController::class, 'indexLangkah2'])->name('penilaian.screening.langkah2.index');
-Route::post('penilaian/screening/langkah2',[PenilaianController::class, 'storeLangkah2'])->name('penilaian.screening.langkah2.store');
-Route::get('penilaian/screening/hasil/{jadwal_penilaian_id}/{siswa_id}', [PenilaianController::class, 'hasilpenilaian'])->name('penilaian.screening.hasil.index');
-Route::get('penilaian/screening/hasil/kesimpulan/{jadwal_penilaian_id}/{siswa_id}', [PenilaianController::class, 'hasilPenilaianAkhir'])->name('penilaian.screening.hasil.kesimpulan.index');
-
+Route::resource('admin/siswa', SiswaController::class);
 
 Auth::routes();
 

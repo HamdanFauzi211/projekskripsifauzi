@@ -24,7 +24,7 @@ class PenilaianController extends Controller
         $siswa = Siswa::all();
         $data = KategoriUmur::all();
 
-        return view('penilaian.screaningtest.langkah1', compact('siswa','data', 'jadwal_penilaian_id'));
+        return view('guru.penilaian.screaningtest.langkah1', compact('siswa','data', 'jadwal_penilaian_id'));
     }
 
     public function storeLangkah1(Request $request)
@@ -44,7 +44,7 @@ class PenilaianController extends Controller
             }])
             ->get();
 
-        return view('penilaian.screaningtest.langkah2', compact('data', 'siswa_id', 'kategori_umur_id', 'jadwal_penilaian_id'));
+        return view('guru.penilaian.screaningtest.langkah2', compact('data', 'siswa_id', 'kategori_umur_id', 'jadwal_penilaian_id'));
     }
 
     public function storeLangkah2(Request $request)
@@ -87,8 +87,8 @@ class PenilaianController extends Controller
 
             foreach($aspek_perkembangan->itemperintah as $j => $item_perintah){               
                 Penilaian::create([
-                    'nilai' => $aspekPerkembangan[$j] == "true" ? "Lulus" : "Tidak Lulus",
-                    'skor' => $aspekPerkembangan[$j] == "true" ? $nilai : "0",
+                    'nilai' => ($aspekPerkembangan[$j] == "lulus") ? "Lulus" : (($aspekPerkembangan[$j] == "tidak_lulus") ? "Tidak Lulus" : "Menolak"),
+                    'skor' => ($aspekPerkembangan[$j] == "lulus") ? $nilai : "0",
                     'item_perintah_id' => $item_perintah->id,
                     'siswa_id' => $siswa_id,
                     'jadwal_penilaian_id' => $jadwal_penilaian_id
@@ -141,15 +141,16 @@ class PenilaianController extends Controller
     public function hasilpenilaian($jadwal_penilaian_id, $siswa_id)
     {
         $data = ItemPerintah::with(['penilaian' => function ($query) use ($jadwal_penilaian_id, $siswa_id){
-            $query->where('jadwal_penilaian_id', $jadwal_penilaian_id)
+            $query->with('itemperintah')
+                ->where('jadwal_penilaian_id', $jadwal_penilaian_id)
                 ->where('siswa_id', $siswa_id);
         }])
             ->whereHas('penilaian')
-            ->get();    
+            ->get();
 
         $this->storeHasilPenilaian($jadwal_penilaian_id, $siswa_id, $data);
             
-        return view('penilaian.screaningtest.hasil', compact('data', 'jadwal_penilaian_id', 'siswa_id'));
+        return view('guru.penilaian.screaningtest.hasil', compact('data', 'jadwal_penilaian_id', 'siswa_id'));
     }
 
     public function storeHasilPenilaianAkhir($siswa_id, $jadwal_penilaian_id){
@@ -157,21 +158,21 @@ class PenilaianController extends Controller
             ->where('siswa_id', $siswa_id)
             ->where('jadwal_penilaian_id', $jadwal_penilaian_id)
             ->get()
-            ->pluck('interpretasihasil.kesimpulan')
+            ->pluck('interpretasihasil.id')
             ->toArray();
         
         $jumlah_hasil = array_count_values($data);
 
         $insert_data = [];
 
-        if (isset($countedValues["Caution"]) && $countedValues["Caution"] <= 1) {
+        if ((isset($jumlah_hasil[1]) && $jumlah_hasil[1] >= 3) || (isset($jumlah_hasil[2]) && $jumlah_hasil[2] <= 1)) {
             $insert_data = [
                 'siswa_id' => $siswa_id,
                 'interpretasi_akhir_id' => 1,
                 'jadwal_penilaian_id' => $jadwal_penilaian_id
             ];
 
-        } else if (isset($countedValues["Caution"]) && $countedValues["Caution"] -= 2) {
+        } else if ( (isset($jumlah_hasil[1]) && $jumlah_hasil[1] == 2) || (isset($jumlah_hasil[2]) && $jumlah_hasil[2] == 2)) {
             $insert_data = [
                 'siswa_id' => $siswa_id,
                 'interpretasi_akhir_id' => 2,
@@ -196,6 +197,6 @@ class PenilaianController extends Controller
         ->where('siswa_id', $siswa_id)
         ->first();
 
-        return view('kesimpulan', compact('kesimpulan'));
+        return view('guru.penilaian.screaningtest.kesimpulan', compact('kesimpulan'));
     }
 }
