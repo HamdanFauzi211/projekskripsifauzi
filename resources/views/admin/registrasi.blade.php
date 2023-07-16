@@ -62,7 +62,7 @@
                         
                     
                   <div class="pt-4 pb-2">
-                    <h5 class="card-title text-center pb-0 fs-4">Create an Account</h5>
+                    <h5 class="card-title text-center pb-0 fs-4">Halaman Registrasi Orangtua</h5>
                     <p class="text-center small">Enter your personal details to create account</p>
                   </div>
 
@@ -111,6 +111,18 @@
                                  <div class="col-md-6">
                                     <select name="role" id="role" class="form-control">
                                     <option value="4">OrangTua</option>
+                                 </select>
+                                </div>  
+                      <div class="invalid-feedback">Please enter your password!</div>
+                    </div>
+
+                    <div class="col-12">
+                      <label for="yourPassword" class="form-label">Nama Siswa</label>
+                                 <div class="col-md-6">
+                                    <select name="siswa_id" id="siswa_id" class="form-control">
+                                    @foreach($siswas as $siswa)
+                                      <option value="{{ $siswa->id }}">{{ $siswa->nama }}</option>
+                                    @endforeach
                                  </select>
                                 </div>  
                       <div class="invalid-feedback">Please enter your password!</div>

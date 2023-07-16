@@ -13,6 +13,8 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HasilPenilaianSiswaController;
 use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\KonsultasiController;
+use App\Http\Controllers\OrangTuaController;
 
 
 // use Illuminate\Support\Facades\Auth;
@@ -77,6 +79,9 @@ Route::middleware(['auth', 'Pakar'])->group(function () {
 
 Route::middleware(['auth', 'OrangTua'])->group(function () {
     Route::get('orangtua/index', [AuthController::class, 'OrangTuaIndex']);
+    Route::resource('orangtua/konsultasi', KonsultasiController::class);
+    // Route::get('orangtua/hasil', [OrangTuaController::class, 'show']);
+    Route::get('orangtua/{siswa_id}/hasil-akhir', [OrangTuaController::class, 'showHasilAkhir']);
  });
 
 

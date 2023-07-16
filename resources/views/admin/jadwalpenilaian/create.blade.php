@@ -119,7 +119,7 @@
 
           <li>
           <a href="{{url('admin/jadwalpenilaian')}}">
-              <i class="bi bi-circle"></i><span>Jadwal Penilaian</span>
+              <i class="bi bi-circle"></i><span>Jadwal Pengukuran</span>
             </a>
           </li>
 
@@ -131,7 +131,7 @@
 
           <li>
           <a href="{{url('admin/hasilpenilaiansiswa')}}">
-              <i class="bi bi-circle"></i><span>Hasil penilaian</span>
+              <i class="bi bi-circle"></i><span>Hasil Pengukuran</span>
             </a>
           </li>
 
@@ -157,12 +157,12 @@
     @csrf
         <div class="my-3 p-3 bg-body rounded shadow-sm">
 
-        <div class="mb-3 row">
+        <!-- <div class="mb-3 row">
                 <label for="nama" class="col-sm-2 col-form-label">ID</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" name='id' id="nama">
                 </div>
-            </div>
+            </div> -->
 
             <div class="mb-3 row">
                 <label for="jurusan" class="col-sm-2 col-form-label">Tanggal</label>

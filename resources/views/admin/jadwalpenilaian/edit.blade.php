@@ -14,12 +14,12 @@
                     @method('PUT')
         <div class="my-3 p-3 bg-body rounded shadow-sm">
 
-        <div class="mb-3 row">
+        <!-- <div class="mb-3 row">
                 <label for="nama" class="col-sm-2 col-form-label">ID</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" name='id' value="{{ $jadwalpenilaian->id }}" >
                 </div>
-            </div>
+            </div> -->
 
             <div class="mb-3 row">
                 <label for="nama" class="col-sm-2 col-form-label">Hari</label>

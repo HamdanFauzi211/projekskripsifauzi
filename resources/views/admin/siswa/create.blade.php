@@ -119,7 +119,7 @@
 
           <li>
           <a href="{{url('admin/jadwalpenilaian')}}">
-              <i class="bi bi-circle"></i><span>Jadwal Penilaian</span>
+              <i class="bi bi-circle"></i><span>Jadwal Pengukuran</span>
             </a>
           </li>
 
@@ -131,7 +131,7 @@
 
           <li>
           <a href="{{url('admin/hasilpenilaiansiswa')}}">
-              <i class="bi bi-circle"></i><span>Hasil penilaian</span>
+              <i class="bi bi-circle"></i><span>Hasil Pengukuran</span>
             </a>
           </li>
 
@@ -153,21 +153,21 @@
       </nav>
     </div><!-- End Page Title -->
 <!-- START FORM -->
-<form action="{{ route('jadwalpenilaian.store') }}" method="POST" enctype="multipart/form-data">
+<form action="{{ route('siswa.store') }}" method="POST" enctype="multipart/form-data">
     @csrf
         <div class="my-3 p-3 bg-body rounded shadow-sm">
-
+<!-- 
         <div class="mb-3 row">
                 <label for="nama" class="col-sm-2 col-form-label">ID</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" name='id' id="nama">
                 </div>
-            </div>
+            </div> -->
 
             <div class="mb-3 row">
                 <label for="nama" class="col-sm-2 col-form-label">NIS</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" name='nis' id="nama">
+                    <input type="number" class="form-control" name='nis' id="nama">
                 </div>
             </div>
 
@@ -178,13 +178,7 @@
                 </div>
             </div>
 
-            <div class="mb-3 row">
-                <label for="jurusan" class="col-sm-2 col-form-label">Umur</label>
-                <div class="col-sm-10">
-                    <input type="date" class="form-control" name='umur' id="jurusan">
-                </div>
-            </div>
-
+            
             <div class="mb-3 row">
                 <label for="jurusan" class="col-sm-2 col-form-label">Jenis Kelamin</label>
                 <div class="col-sm-10">
@@ -193,6 +187,13 @@
                     <option value="Perempuan">Perempuan</option>
               
                 </select>
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <label for="jurusan" class="col-sm-2 col-form-label">Tanggal Lahir</label>
+                <div class="col-sm-10">
+                    <input type="date" class="form-control" name='tanggal_lahir' id="tanggal_lahir">
                 </div>
             </div>
 

@@ -119,7 +119,7 @@
 
           <li>
           <a href="{{url('admin/jadwalpenilaian')}}">
-              <i class="bi bi-circle"></i><span>Jadwal Penilaian</span>
+              <i class="bi bi-circle"></i><span>Jadwal Pengukuran</span>
             </a>
           </li>
 
@@ -131,7 +131,7 @@
 
           <li>
           <a href="{{url('admin/hasilpenilaiansiswa')}}">
-              <i class="bi bi-circle"></i><span>Hasil penilaian</span>
+              <i class="bi bi-circle"></i><span>Hasil Pengukuran</span>
             </a>
           </li>
 
@@ -167,22 +167,24 @@
                 <table class="table datatable">
                     <thead>
                         <tr>
-                            <th class="col-md-1">ID</th>
+                            <!-- <th class="col-md-1">ID</th> -->
                             <th class="col-md-3">NIS</th>
                             <th class="col-md-4">Nama</th>
-                            <th class="col-md-2">Tanggal </th>
                             <th class="col-md-2">Jenis Kelamin</th>
+                            <th class="col-md-2">Tanggal Lahir</th>
+                            <th class="col-md-2">Umur</th>
                             <th class="col-md-2">Action</th>
                         </tr>
                     </thead>
                     <tbody>
                     @foreach($siswa as $s)
                     <tr>
-                      <td>{{ $s->id }}</td>
+                      <!-- <td>{{ $s->id }}</td> -->
                       <td>{{ $s->nis }}</td>
                       <td>{{ $s->nama }}</td>
-                      <td>{{ $s->umur }}</td>
                       <td>{{ $s->jenis_kelamin }}</td>
+                      <td>{{ $s->tanggal_lahir }}</td>
+                      <td>{{ $s->umur }}</td>
                       <td class="text-center">
                   <a href="{{ route('siswa.edit', $s->id) }}" class="btn btn-primary"><i class="fa fa-edit"></i>
                     Edit</a>

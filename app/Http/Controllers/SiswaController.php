@@ -34,17 +34,22 @@ class SiswaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-     public function store(Request $request)
+    public function store(Request $request)
     {
-        
-    Siswa::create([
-        'id' => $request->id,
-        'nis' => $request->nis,
-        'nama' => $request->nama,
-        'umur' => $request->umur,
-        'jenis_kelamin' => $request->jenis_kelamin
-    ]);
-
+        $request->validate([
+            'nis' => 'required',
+            'nama' => 'required',
+            'jenis_kelamin' => 'required',
+            'tanggal_lahir' => 'required|date',
+        ]);
+    
+        $siswa = new Siswa();
+        $siswa->nis = $request->nis;
+        $siswa->nama = $request->nama;
+        $siswa->jenis_kelamin = $request->jenis_kelamin;
+        $siswa->tanggal_lahir = $request->tanggal_lahir;
+        $siswa->umur = $siswa->hitungUmur();
+        $siswa->save();
     return redirect()->route('siswa.index');
     }
 
@@ -85,11 +90,13 @@ class SiswaController extends Controller
         $siswa = Siswa::findOrFail($siswa->id);
 
         $siswa->update([
-            'id' => $request->id,
+            // 'id' => $request->id,
             'nis' => $request->nis,
             'nama' => $request->nama,
-            'umur' => $request->umur,
-            'jenis_kelamin' => $request->jenis_kelamin
+            'jenis_kelamin' => $request->jenis_kelamin,
+            'tanggal_lahir' => $request->tanggal_lahir,
+            'umur' => $request->umur
+
         ]);
 
         return redirect()->route('siswa.index');

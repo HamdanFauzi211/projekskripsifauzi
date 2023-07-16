@@ -119,7 +119,7 @@
 
           <li>
           <a href="{{url('admin/jadwalpenilaian')}}">
-              <i class="bi bi-circle"></i><span>Jadwal Penilaian</span>
+              <i class="bi bi-circle"></i><span>Jadwal Pengukuran</span>
             </a>
           </li>
 
@@ -131,13 +131,20 @@
 
           <li>
           <a href="{{url('admin/hasilpenilaiansiswa')}}">
-              <i class="bi bi-circle"></i><span>Hasil penilaian</span>
+              <i class="bi bi-circle"></i><span>Hasil Pengukuran</span>
+            </a>
+          </li>
+
+          <li>
+          <a href="{{url('admin/register')}}">
+              <i class="bi bi-circle"></i><span>Register Orangtua</span>
             </a>
           </li>
 
         </ul>
-      </li><!-- End Tables Nav -->
-    </ul>
+
+        
+        
   </aside><!-- End Sidebar-->
 
   <main id="main" class="main">

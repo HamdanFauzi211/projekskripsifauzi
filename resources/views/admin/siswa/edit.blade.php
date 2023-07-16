@@ -14,12 +14,12 @@
                     @method('PUT')
         <div class="my-3 p-3 bg-body rounded shadow-sm">
 
-        <div class="mb-3 row">
+        <!-- <div class="mb-3 row">
                 <label for="nama" class="col-sm-2 col-form-label">ID</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" name='id' value="{{ $siswa->id }}" >
                 </div>
-            </div>
+            </div> -->
 
             <div class="mb-3 row">
                 <label for="nama" class="col-sm-2 col-form-label">NIS</label>
@@ -34,14 +34,7 @@
                     <input type="text" class="form-control" name='nama' value="{{ $siswa->nama }}" >
                 </div>
             </div>
-
-            <div class="mb-3 row">
-                <label for="jurusan" class="col-sm-2 col-form-label">Umur</label>
-                <div class="col-sm-10">
-                    <input type="date" class="form-control" name='umur' value="{{ $siswa->umur }}" >
-                </div>
-            </div>
-
+            
             <div class="mb-3 row">
                 <label for="jurusan" class="col-sm-2 col-form-label">Jenis Kelamin</label>
                 <div class="col-sm-10">
@@ -51,6 +44,21 @@
                 </select>
                 </div>
             </div>
+
+            <!-- <div class="mb-3 row">
+
+                <label for="jurusan" class="col-sm-2 col-form-label">Umur (bulan)</label>
+                <div class="col-sm-10">
+                    <input type="number" class="form-control" name='umur' value="{{ $siswa->umur }}" >
+                </div>
+            </div> -->
+            <div class="mb-3 row">
+                <label for="jurusan" class="col-sm-2 col-form-label">Tanggal Lahir</label>
+                <div class="col-sm-10">
+                    <input type="date" class="form-control" name='tanggal_lahir' value="{{ $siswa->tanggal_lahir }}" >
+                </div>
+            </div>
+
 
 
             <div class="mb-3 row">

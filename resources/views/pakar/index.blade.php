@@ -160,7 +160,7 @@
         <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
           <a href="{{url('guru/jadwalpenilaian')}}">
-              <i class="bi bi-circle"></i><span>Jadwal Penilaian</span>
+              <i class="bi bi-circle"></i><span>Jadwal Pengukuran</span>
             </a>
           </li>
         </ul>

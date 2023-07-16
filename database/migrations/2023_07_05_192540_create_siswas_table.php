@@ -22,7 +22,8 @@ return new class extends Migration
                 'Laki-laki',
                 'Perempuan'
             ]);
-            $table->date('umur');
+            $table->date('tanggal_lahir');
+            $table->string('umur');
             $table->timestamps();
         });
     }

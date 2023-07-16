@@ -119,19 +119,19 @@
         </ul>
 
         <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-layout-text-window-reverse"></i><span>Jadwal Penghitungan</span><i class="bi bi-chevron-down ms-auto"></i>
+          <i class="bi bi-layout-text-window-reverse"></i><span>Jadwal Pengukuran</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
 
           <li>
           <a href="{{url('guru/jadwalpenilaian')}}">
-              <i class="bi bi-circle"></i><span>Penilaian</span>
+              <i class="bi bi-circle"></i><span>Pengukuran</span>
             </a>
           </li>
 
           <li>
           <a href="{{url('guru/hasilpenilaiansiswa')}}">
-              <i class="bi bi-circle"></i><span>Hasil penilaian</span>
+              <i class="bi bi-circle"></i><span>Hasil Pengukuran</span>
             </a>
           </li>
 
@@ -159,15 +159,15 @@
 
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">Data Jadwal Penilaian</h5>
+              <h5 class="card-title">Data Jadwal Pengukuran</h5>
              
               <!-- Table with stripped rows -->
               <table class="table datatable">
                 <thead>
                   <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">Nama Jadwal</th>
-                    <th scope="col">Tangaal </th>
+                    <!-- <th scope="col">ID</th> -->
+                    <th scope="col">Hari</th>
+                    <th scope="col">Tanggal </th>
                     <!-- <th scope="col">Kategori Umur</th> -->
                     <th></th>
                   </tr>
@@ -175,7 +175,7 @@
                 </thead>
                 <body>
                   <tr>
-                    <td>{{$j -> id }}</td>
+                    <!-- <td>{{$j -> id }}</td> -->
                     <td>{{$j -> nama_jadwal }}</td>
                     <td>{{$j -> tanggal }}</td>
                     <td><a href="{{route('penilaian.screening.langkah1.index', $j->id)}}" type="button" class="btn btn-success">Nilai</a></td>

@@ -18,7 +18,6 @@ return new class extends Migration
             $table->unsignedBigInteger('siswa_id');
             $table->unsignedBigInteger('interpretasi_akhir_id');
             $table->unsignedBigInteger('jadwal_penilaian_id');
-            $table->string('skor');
             $table->timestamps();
             $table->foreign('siswa_id')->references('id')->on('siswas');
             $table->foreign('interpretasi_akhir_id')->references('id')->on('interpretasi_akhirs');

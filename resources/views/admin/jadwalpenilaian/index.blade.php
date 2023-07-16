@@ -119,7 +119,7 @@
 
           <li>
           <a href="{{url('admin/jadwalpenilaian')}}">
-              <i class="bi bi-circle"></i><span>Jadwal Penilaian</span>
+              <i class="bi bi-circle"></i><span>Jadwal Pengukuran</span>
             </a>
           </li>
 
@@ -167,7 +167,7 @@
                 <table class="table datatable">
                     <thead>
                         <tr>
-                            <th class="col-md-1">ID</th>
+                            <!-- <th class="col-md-1">ID</th> -->
                             <th class="col-md-3">Hari</th>
                             <th class="col-md-4">Tanggal</th>
                             <th class="col-md-2">Action</th>
@@ -176,7 +176,7 @@
                     <tbody>
                     @foreach($jadwalpenilaian as $j)
                     <tr>
-                      <td>{{ $j->id }}</td>
+                      <!-- <td>{{ $j->id }}</td> -->
                       <td>{{ $j->nama_jadwal }}</td>
                       <td>{{ $j->tanggal }}</td>
                       <td class="text-center">

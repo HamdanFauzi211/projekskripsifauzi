@@ -119,7 +119,7 @@
         </ul>
 
         <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-layout-text-window-reverse"></i><span>Jadwal Penghitungan</span><i class="bi bi-chevron-down ms-auto"></i>
+          <i class="bi bi-layout-text-window-reverse"></i><span>Jadwal Pengukuran</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
 
@@ -181,7 +181,7 @@
                                         @foreach ($motorik_kasar as $d)
                                             <tr>
                                                 <td>{{ $d->perintah }}</td>
-                                                <td>{{ $d->penilaian->get(0)->nilai }}</td>
+                                                <td>{{ $d->penilaian->get(0)->nilai ?? '' }}</td>
                                                 <td>{{ number_format((float)$d->penilaian->get(0)->skor, 2, '.', '') }}</td>
                                             </tr>
                                         @endforeach

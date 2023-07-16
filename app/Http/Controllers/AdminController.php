@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use App\Models\JadwalPenilaian;
+use App\Models\Siswa;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -14,7 +15,8 @@ class AdminController extends Controller
 {
     public function register()
     {
-        return view('admin.registrasi');
+        $siswas = Siswa::all();
+        return view('admin.registrasi', compact('siswas'));
     } 
 
     public function prosesRegister(Request $request)
@@ -26,6 +28,7 @@ class AdminController extends Controller
             'username' => $request['username'],
             'password' => Hash::make($request['password']),
             'role' => $request['role'],
+            'siswa_id' => $request['siswa_id'],
         ]);
         return redirect('/admin/index');
     } 
@@ -50,7 +53,7 @@ class AdminController extends Controller
     {
         
     JadwalPenilaian::create([
-        'id' => $request->id,
+        // 'id' => $request->id,
         'nama_jadwal' => $request->nama_jadwal,
         'tanggal' => $request->tanggal
     ]);
@@ -68,7 +71,7 @@ class AdminController extends Controller
         $jadwalpenilaian = JadwalPenilaian::findOrFail($jadwalpenilaian->id);
 
         $jadwalpenilaian->update([
-            'id' => $request->id,
+            // 'id' => $request->id,
             'nama_jadwal' => $request->nama_jadwal,
             'tanggal' => $request->tanggal
         ]);

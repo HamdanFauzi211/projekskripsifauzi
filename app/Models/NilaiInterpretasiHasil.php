@@ -19,4 +19,8 @@ class NilaiInterpretasiHasil extends Model
     public function interpretasihasil(){
         return $this->belongsTo(InterpretasiHasil::class, 'interpretasi_hasil_id', 'id');
     }
+
+    public function jadwalpenilaian(){
+        return $this->belongsTo(JadwalPenilaian::class, 'jadwal_penilaian_id', 'id');
+    }
 }

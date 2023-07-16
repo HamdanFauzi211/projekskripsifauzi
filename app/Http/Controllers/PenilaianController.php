@@ -21,7 +21,11 @@ class PenilaianController extends Controller
      */
     public function indexLangkah1($jadwal_penilaian_id)
     {
-        $siswa = Siswa::all();
+        $siswa = Siswa::with(['nilaiinterpretasihasil' => function($query) use($jadwal_penilaian_id) {
+            $query->whereNot('jadwal_penilaian_id', $jadwal_penilaian_id);
+        }])
+        ->get();
+        
         $data = KategoriUmur::all();
 
         return view('guru.penilaian.screaningtest.langkah1', compact('siswa','data', 'jadwal_penilaian_id'));
@@ -140,13 +144,11 @@ class PenilaianController extends Controller
 
     public function hasilpenilaian($jadwal_penilaian_id, $siswa_id)
     {
-        $data = ItemPerintah::with(['penilaian' => function ($query) use ($jadwal_penilaian_id, $siswa_id){
-            $query->with('itemperintah')
-                ->where('jadwal_penilaian_id', $jadwal_penilaian_id)
+        $data = ItemPerintah::whereHas('penilaian', function ($query) use ($jadwal_penilaian_id, $siswa_id) {
+            $query->where('jadwal_penilaian_id', $jadwal_penilaian_id)
                 ->where('siswa_id', $siswa_id);
-        }])
-            ->whereHas('penilaian')
-            ->get();
+        })
+        ->get();
 
         $this->storeHasilPenilaian($jadwal_penilaian_id, $siswa_id, $data);
             
@@ -189,7 +191,7 @@ class PenilaianController extends Controller
         NilaiInterpretasiAkhir::create($insert_data);
     }
 
-    public function hasilPenilaianAkhir($siswa_id, $jadwal_penilaian_id){
+    public function hasilPenilaianAkhir($jadwal_penilaian_id, $siswa_id){
        $this->storeHasilPenilaianAkhir($siswa_id, $jadwal_penilaian_id);
 
        $kesimpulan = NilaiInterpretasiAkhir::with('interpretasiakhir', 'siswa')
