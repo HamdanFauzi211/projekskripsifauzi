@@ -142,24 +142,13 @@
 
   <main id="main" class="main">
 
-    <div class="pagetitle">
-      <h1>Dashboard</h1>
-      <nav>
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-          <li class="breadcrumb-item active">Dashboard</li>
-          
-        </ol>
-      </nav>
-    </div><!-- End Page Title -->
-
     <section class="section">
       <div class="row">
         <div class="col-lg-12">
 
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title text-center" >Sistem Pengukuran Tumbuh Kembang Anak</h5>
+              <h5 class="card-title text-center" >Halaman Pengukuran Tumbuh Kembang Anak</h5>
 
               <!-- General Form Elements -->
               <form action="{{route('penilaian.screening.langkah1.store')}}" method="POST">
@@ -170,10 +159,11 @@
                   <div class="col-sm-10">
                   <select id="siswa" name="siswa_id" class="form-control bg-light" style="color:black;">
                 @foreach($siswa as $s)
-                <option value="{{ $s->id }}">{{ $s->nama }}</option>
+                <option value="{{ $s->id }}">{{ $s->nama }} --> Umur: {{ $s->umur }} <--</option> 
                 @endforeach
                 </select>
                   </div>
+                  
                 </div>
                 <div class="row mb-3">
                   <label for="inputEmail" class="col-sm-2 col-form-label">Kategori Umur</label>

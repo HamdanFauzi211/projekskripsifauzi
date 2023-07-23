@@ -142,24 +142,13 @@
 
   <main id="main" class="main">
 
-    <!-- <div class="pagetitle">
-      <h1>Dashboard</h1>
-      <nav>
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-          <li class="breadcrumb-item active">Dashboard</li>
-          
-        </ol>
-      </nav> -->
-    </div><!-- End Page Title -->
-
-    <section class="section">
+  <section class="section">
       <div class="row">
         <div class="col-lg-12">
 
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">Data tabel item perintah</h5>
+            <h6 class="card-title text-center">Halaman Data Item Perintah</h6>
              
               <!-- Table with stripped rows -->
               <table class="table datatable">

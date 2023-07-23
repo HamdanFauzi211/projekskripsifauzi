@@ -86,21 +86,27 @@ class SiswaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Siswa $siswa)
-    {
-        $siswa = Siswa::findOrFail($siswa->id);
+{
+    $request->validate([
+        'nis' => 'required',
+        'nama' => 'required',
+        'jenis_kelamin' => 'required',
+    ]);
 
-        $siswa->update([
-            // 'id' => $request->id,
-            'nis' => $request->nis,
-            'nama' => $request->nama,
-            'jenis_kelamin' => $request->jenis_kelamin,
-            'tanggal_lahir' => $request->tanggal_lahir,
-            'umur' => $request->umur
+    $siswa->nis = $request->nis;
+    $siswa->nama = $request->nama;
+    $siswa->jenis_kelamin = $request->jenis_kelamin;
 
-        ]);
-
-        return redirect()->route('siswa.index');
+    // Jika tanggal_lahir tersedia dalam request, simpan nilainya
+    if ($request->has('tanggal_lahir')) {
+        $siswa->tanggal_lahir = $request->tanggal_lahir;
+        $siswa->umur = $siswa->hitungUmur();
     }
+
+    $siswa->save();
+
+    return redirect()->route('siswa.index');
+}
 
     /**
      * Remove the specified resource from storage.

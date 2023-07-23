@@ -140,22 +140,16 @@
     </ul>
   </aside><!-- End Sidebar-->
 
-  <main id="main" class="main">
-
-    <div class="pagetitle">
-      <h1>Dashboard</h1>
-      <nav>
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-          <li class="breadcrumb-item active">Dashboard</li>
-          
-        </ol>
-      </nav>
-    </div><!-- End Page Title -->
 <!-- START FORM -->
 <form action="{{ route('siswa.store') }}" method="POST" enctype="multipart/form-data">
     @csrf
-        <div class="my-3 p-3 bg-body rounded shadow-sm">
+      <main id="main" class="main">
+          <section class="section">
+             <div class="row">
+        <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+            <h6 class="card-title text-center">Halaman Tambah Anak</h6>
 <!-- 
         <div class="mb-3 row">
                 <label for="nama" class="col-sm-2 col-form-label">ID</label>
@@ -164,40 +158,31 @@
                 </div>
             </div> -->
 
-            <div class="mb-3 row">
-                <label for="nama" class="col-sm-2 col-form-label">NIS</label>
-                <div class="col-sm-10">
-                    <input type="number" class="form-control" name='nis' id="nama">
-                </div>
+            <div class="mb-3">
+                <label for="nama" class="col-sm-2 col-form-label">Nomor Induk</label>
+                    <input type="number" class="form-control" name='nis' id="nis">
             </div>
 
-            <div class="mb-3 row">
+            <div class="mb-3 ">
                 <label for="jurusan" class="col-sm-2 col-form-label">Nama</label>
-                <div class="col-sm-10">
                     <input type="text" class="form-control" name='nama' id="jurusan">
-                </div>
-            </div>
-
+              </div>
+          
             
-            <div class="mb-3 row">
+            <div class="mb-3">
                 <label for="jurusan" class="col-sm-2 col-form-label">Jenis Kelamin</label>
-                <div class="col-sm-10">
                 <select name="jenis_kelamin" class="form-control bg-light" style="color:black;">
                     <option value="Laki-laki">Laki-Laki</option>
                     <option value="Perempuan">Perempuan</option>
-              
                 </select>
-                </div>
             </div>
 
-            <div class="mb-3 row">
+            <div class="mb-3 ">
                 <label for="jurusan" class="col-sm-2 col-form-label">Tanggal Lahir</label>
-                <div class="col-sm-10">
                     <input type="date" class="form-control" name='tanggal_lahir' id="tanggal_lahir">
-                </div>
             </div>
 
-            <div class="mb-3 row">
+            <div class="mb-3">
                 <label for="jurusan" class="col-sm-2 col-form-label"></label>
                 <div class="col-sm-10"><button type="submit" class="btn btn-primary" name="submit">SIMPAN</button></div>
             </div>

@@ -159,7 +159,7 @@
 
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">Data tabel item perintah</h5>
+            <h6 class="card-title text-center">Halaman Data Item Perintah</h6>
              
               <!-- Table with stripped rows -->
               <table class="table datatable">

@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Pages / Login - NiceAdmin Bootstrap Template</title>
+  <title>PAUD LITTLE CARE YOGYAKARTA</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -63,8 +63,8 @@
                     @csrf
 
                   <div class="pt-4 pb-2">
-                    <h5 class="card-title text-center pb-0 fs-4">Login to Your Account</h5>
-                    <p class="text-center small">Enter your username & password to login</p>
+                    <h5 class="card-title text-center pb-0 fs-4">Halaman Login</h5>
+                    <p class="text-center small">Masukkan Username dan Password</p>
                   </div>
 
                   <form class="row g-3 needs-validation" novalidate>
@@ -95,7 +95,7 @@
                     </div>
                     <br>
                     <div class="col-12">
-                      <p class="small mb-0">Don't have account? <a href="{{ route('register') }}">Create an account</a></p>
+                      <p class="small mb-0">Tidak punya akun?  <a href="{{ route('register') }}">Buat sebuah akun</a></p>
                     </div>
                     <!-- <div class="col-12">
                       <p class="small mb-0">Don't have account? <a href="pages-register.html">Create an account</a></p>
@@ -110,9 +110,9 @@
                 <!-- You can delete the links only if you purchased the pro version. -->
                 <!-- Licensing information: https://bootstrapmade.com/license/ -->
                 <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ -->
-                Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+                Designed by PAUD LITTLECARE YOGYAKARTA</a>
+                </div>
               </div>
-
             </div>
           </div>
         </div>

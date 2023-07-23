@@ -48,7 +48,7 @@ Route::middleware(['auth', 'Guru'])->group(function () {
     Route::get('guru/itemperintah',[ItemPerintahController::class, 'Show']);
     Route::get('guru/kategoriumur',[KategoriUmurController::class, 'Show']);
     Route::get('guru/aspekperkembangan',[AspekPerkembanganController::class, 'Show']);
-    Route::get('guru/hasilpenilaiansiswa',[HasilPenilaianSiswaController::class, 'Show']);
+    Route::get('guru/hasilpenilaiansiswa',[HasilPenilaianSiswaController::class, 'showguru']);
     Route::get('guru/datasiswa',[SiswaController::class, 'show']);
     Route::resource('guru/jadwalpenilaian', JadwalPenilaianController::class);
     Route::get('guru/penilaian/screening/langkah1/{jadwal_penilaian_id}',[PenilaianController::class, 'indexLangkah1'])->name('penilaian.screening.langkah1.index');
@@ -62,7 +62,7 @@ Route::middleware(['auth', 'Guru'])->group(function () {
 
 Route::middleware(['auth', 'Admin'])->group(function () {
     Route::get('admin/index', [AuthController::class, 'AdminIndex']);
-    Route::get('admin/kategoriumur',[KategoriUmurController::class, 'show']);
+    Route::get('admin/kategoriumur',[KategoriUmurController::class, 'showadminkategoriumur']);
     Route::get('admin/aspekperkembangan',[KategoriUmurController::class, 'showadminaspekperkembangan']);
     Route::get('admin/itemperintah',[KategoriUmurController::class, 'showadminitemperintah']);
     Route::get('admin/register', [AdminController::class, 'register'])->name('admin.register');
@@ -70,7 +70,7 @@ Route::middleware(['auth', 'Admin'])->group(function () {
     Route::get('/admin/datauser',[AdminController::class, 'user'])->name('account.user');
     Route::resource('admin/siswa', SiswaController::class);
     Route::resource('admin/jadwalpenilaian', AdminController::class);
-    Route::get('admin/hasilpenilaiansiswa',[HasilPenilaianSiswaController::class, 'Show']);
+    Route::get('admin/hasilpenilaiansiswa',[HasilPenilaianSiswaController::class, 'showadmin']);
 });
 
 Route::middleware(['auth', 'Pakar'])->group(function () {

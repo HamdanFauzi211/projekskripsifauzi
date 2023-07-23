@@ -10,6 +10,7 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class AdminController extends Controller
 {
@@ -28,7 +29,6 @@ class AdminController extends Controller
             'username' => $request['username'],
             'password' => Hash::make($request['password']),
             'role' => $request['role'],
-            'siswa_id' => $request['siswa_id'],
         ]);
         return redirect('/admin/index');
     } 

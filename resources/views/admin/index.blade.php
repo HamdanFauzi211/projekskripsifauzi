@@ -135,11 +135,11 @@
             </a>
           </li>
 
-          <li>
+          <!-- <li>
           <a href="{{url('admin/register')}}">
               <i class="bi bi-circle"></i><span>Register Orangtua</span>
             </a>
-          </li>
+          </li> -->
 
         </ul>
 
@@ -185,7 +185,7 @@
   <!-- ======= Footer ======= -->
   <footer id="footer" class="footer">
     <div class="copyright">
-      &copy; Copyright <strong><span>Hamdan Fauzi</span></strong>. All Rights Reserved
+      <strong><span>Copyright 2023 All Right Reserved By PAUD LITTLE CARE YOGYAKARTA</span></strong>
     </div>
   </footer><!-- End Footer -->
 

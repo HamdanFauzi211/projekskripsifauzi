@@ -26,10 +26,8 @@ return new class extends Migration
                 'Pakar',
                 'OrangTua'
             ]);
-            $table->unsignedBigInteger('siswa_id');
             $table->rememberToken();
             $table->timestamps();
-            $table->foreign('siswa_id')->references('id')->on('siswas');
         });
     }
 

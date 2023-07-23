@@ -140,29 +140,17 @@
     </ul>
   </aside><!-- End Sidebar-->
 
-  <main id="main" class="main">
-
-    <div class="pagetitle">
-      <h1>Dashboard</h1>
-      <nav>
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-          <li class="breadcrumb-item active">Dashboard</li>
-          
-        </ol>
-      </nav>
-    </div><!-- End Page Title -->
 <!-- START FORM -->
 <form action="{{ route('jadwalpenilaian.store') }}" method="POST" enctype="multipart/form-data">
     @csrf
-        <div class="my-3 p-3 bg-body rounded shadow-sm">
+    <main id="main" class="main">
+  <section class="section">
+      <div class="row">
+        <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+            <h6 class="card-title text-center">Halaman Tambah Jadwal Pengukuran</h6>
 
-        <!-- <div class="mb-3 row">
-                <label for="nama" class="col-sm-2 col-form-label">ID</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" name='id' id="nama">
-                </div>
-            </div> -->
 
             <div class="mb-3 row">
                 <label for="jurusan" class="col-sm-2 col-form-label">Tanggal</label>

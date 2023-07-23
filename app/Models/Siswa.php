@@ -45,29 +45,29 @@ class Siswa extends Model
 
 // >-- Menampilkan Hari Bulan Tahun --<
     
-public function hitungUmur()
-{
-    $tanggal_lahir = new \DateTime($this->tanggal_lahir);
-    $sekarang = new \DateTime();
-    $umur = $tanggal_lahir->diff($sekarang);
+// public function hitungUmur()
+// {
+//     $tanggal_lahir = new \DateTime($this->tanggal_lahir);
+//     $sekarang = new \DateTime();
+//     $umur = $tanggal_lahir->diff($sekarang);
 
-    $tahun = $umur->y;
-    $bulan = $umur->m;
-    $hari = $umur->d;
+//     $tahun = $umur->y;
+//     $bulan = $umur->m;
+//     $hari = $umur->d;
 
-    $umurFormatted = '';
-    if ($tahun > 0) {
-        $umurFormatted .= $tahun . ' tahun, ';
-    }
-    if ($bulan > 0) {
-        $umurFormatted .= $bulan . ' bulan, ';
-    }
-    if ($hari > 0) {
-        $umurFormatted .= $hari . ' hari';
-    }
+//     $umurFormatted = '';
+//     if ($tahun > 0) {
+//         $umurFormatted .= $tahun . ' tahun, ';
+//     }
+//     if ($bulan > 0) {
+//         $umurFormatted .= $bulan . ' bulan, ';
+//     }
+//     if ($hari > 0) {
+//         $umurFormatted .= $hari . ' hari';
+//     }
 
-    return $umurFormatted;
- }
+//     return $umurFormatted;
+//  }
 
 
 // >-- Menampilkan Tahun Bulan --<
@@ -95,15 +95,19 @@ public function hitungUmur()
 // }
 
 // Kode menampilkan hari bulan
-// public function hitungUmur()
-//     {
-//         $tanggalLahir = new \DateTime($this->tanggal_lahir);
-//         $sekarang = new \DateTime();
-//         $umur = $tanggalLahir->diff($sekarang);
+public function hitungUmur()
+{
+    $tanggalLahir = new \DateTime($this->tanggal_lahir);
+    $sekarang = new \DateTime();
+    $umur = $tanggalLahir->diff($sekarang);
 
-//         $bulan = $umur->m;
-//         $hari = $umur->d;
+    $tahun = $umur->y;
+    $bulan = $umur->m;
+    $hari = $umur->d;
 
-//         return $bulan . ' bulan, ' . $hari . ' hari';
-//     }
+    $totalBulan = $tahun * 12 + $bulan;
+
+    return $totalBulan . ' bulan, ' . $hari . ' hari';
+}
+
 }

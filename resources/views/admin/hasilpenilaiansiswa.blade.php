@@ -159,7 +159,7 @@
 
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">Data tabel item perintah</h5>
+              <h5 class="card-title text-center">Halaman Hasil Pengukuran</h5>
              
               <!-- Table with stripped rows -->
               <table class="table datatable">
@@ -170,6 +170,7 @@
                     <th scope="col">Hasil</th>
                     <th scope="col">Keterangan</th>
                     <th scope="col">Hari</th>
+                    <th scope="col">Tanggal</th>
                   </tr>
                   @foreach ($nilaiinterpretasiakhir as $i)
                 </thead>
@@ -180,6 +181,7 @@
                     <td>{{$i -> interpretasiakhir->kesimpulan }}</td>
                     <td>{{$i -> interpretasiakhir->keterangan }}</td>
                     <td>{{$i -> jadwalpenilaian->nama_jadwal }}</td>
+                    <td>{{$i -> jadwalpenilaian->tanggal }}</td>
                  @endforeach
                 </body>
               </table>
