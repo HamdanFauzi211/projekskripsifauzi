@@ -159,7 +159,7 @@
 
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title text-center" >Halaman Hasil Kesimpulan Pengukuran Tumbuh Kembang Anak</h5>
+            <h5 class="card-title text-center">Halaman Hasil Keseluruhan Anak</h5>
              
               <!-- Table with stripped rows -->
               <table class="table datatable">
@@ -171,6 +171,8 @@
                     <th scope="col">Keterangan</th>
                     <th scope="col">Hari</th>
                     <th scope="col">Tanggal</th>
+                    <th scope="col">Action</th>
+
                   </tr>
                   @foreach ($nilaiinterpretasiakhir as $i)
                 </thead>
@@ -182,6 +184,10 @@
                     <td>{{$i -> interpretasiakhir->keterangan }}</td>
                     <td>{{$i -> jadwalpenilaian->nama_jadwal }}</td>
                     <td>{{$i -> jadwalpenilaian->tanggal }}</td>
+                    <td>
+                    <a href="{{ route('showguru-siswa-penilaian', ['siswa_id' => $i->siswa_id]) }}" class="btn btn-primary">Lihat Hasil</a>
+            </td>
+        </tr>
                  @endforeach
                 </body>
               </table>

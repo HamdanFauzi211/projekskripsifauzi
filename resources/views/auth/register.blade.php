@@ -113,7 +113,7 @@
                                     <select name="role" id="role" class="form-control">
                                     <option value="1">Admin</option>
                                     <option value="2">Guru</option>
-                                    <option value="3">Pakar</option>
+
                                  </select>
                                 </div>  
                       <div class="invalid-feedback">Please enter your password!</div>

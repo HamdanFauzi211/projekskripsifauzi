@@ -135,6 +135,12 @@
             </a>
           </li>
 
+          <li>
+          <a href="{{url('admin/grafik')}}">
+              <i class="bi bi-circle"></i><span>Grafik</span>
+            </a>
+          </li>
+
         </ul>
       </li><!-- End Tables Nav -->
     </ul>
@@ -159,29 +165,34 @@
 
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title text-center">Halaman Hasil Pengukuran</h5>
+              <h5 class="card-title text-center">Halaman Hasil Keseluruhan Anak</h5>
              
               <!-- Table with stripped rows -->
               <table class="table datatable">
                 <thead>
                   <tr>
-                    <th scope="col">ID</th>
+                    <!-- <th scope="col">ID</th> -->
                     <th scope="col">Nama</th>
                     <th scope="col">Hasil</th>
                     <th scope="col">Keterangan</th>
                     <th scope="col">Hari</th>
                     <th scope="col">Tanggal</th>
+                    <th scope="col">Action</th>
                   </tr>
                   @foreach ($nilaiinterpretasiakhir as $i)
                 </thead>
                 <body>
                   <tr>
-                    <td>{{$i -> id }}</td>
-                    <td>{{$i -> siswa->nama }}</td>
+                    <!-- <td>{{$i -> id }}</td> -->
+                    <td>{{$i->siswa->nama}} <br> <strong>Umur: {{$i->siswa->umur}}</strong></td>
                     <td>{{$i -> interpretasiakhir->kesimpulan }}</td>
                     <td>{{$i -> interpretasiakhir->keterangan }}</td>
                     <td>{{$i -> jadwalpenilaian->nama_jadwal }}</td>
                     <td>{{$i -> jadwalpenilaian->tanggal }}</td>
+                    <td>
+                    <a href="{{ route('showSiswaPenilaianAdmin', ['siswa_id' => $i->siswa_id, 'hari_dipilih' => $i->jadwalpenilaian->nama_jadwal]) }}" class="btn btn-primary">Lihat Hasil</a>
+                    </td>
+                  </tr>
                  @endforeach
                 </body>
               </table>

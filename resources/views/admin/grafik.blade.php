@@ -131,12 +131,12 @@
 
           <li>
           <a href="{{url('admin/hasilpenilaiansiswa')}}">
-              <i class="bi bi-circle"></i><span>Hasil Pengukuran</span>
+              <i class="bi bi-circle"></i><span>Hasil penilaian</span>
             </a>
           </li>
 
           <li>
-          <a href="{{url('admin/grafik')}}">
+          <a href="{{url('admin/hasilpenilaiansiswagrafik')}}">
               <i class="bi bi-circle"></i><span>Grafik</span>
             </a>
           </li>
@@ -147,26 +147,36 @@
   </aside><!-- End Sidebar-->
 
   <main id="main" class="main">
-    <section class="section">
+
+  <section class="section">
       <div class="row">
         <div class="col-lg-12">
 
           <div class="card">
             <div class="card-body">
-              <h6 class="card-title text-center">Halaman Data Aspek Perkembangan</h6>
+            <h6 class="card-title text-center">Halaman Grafik Anak</h6>
+            <a href="/admin/grafik_total" class="btn btn-success">Grafik Total</a>
               <!-- Table with stripped rows -->
               <table class="table datatable">
                 <thead>
                   <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">Aspek Perkembangan</th>
+                    <!-- <th scope="col">ID</th> -->
+                    <th scope="col">Nomor Induk</th>
+                    <th scope="col">Nama</th>
+                    <th scope="col">Umur</th>
+                    <th scope="col">Jenis Kelamin</th>
+                    <th scope="col">Action</th>
                   </tr>
-                  @foreach ($aspekperkembangan as $a)
+                  @foreach ($siswa as $s)
                 </thead>
                 <body>
                   <tr>
-                    <td>{{ $a->id}}</td>
-                    <td>{{ $a->nama_aspek}}</td>
+                    <!-- <td>{{ $s->id}}</td> -->
+                    <td>{{ $s->nis}}</td>
+                    <td>{{ $s->nama}}</td>
+                    <td>{{ $s->umur}}</td>
+                    <td>{{ $s->jenis_kelamin}}</td>
+                    <td><a href="{{ route('showadmin-hasilgrafik', ['siswa_id' => $s->id]) }}" class="btn btn-primary">Lihat Grafik</a></td>
                  @endforeach
                 </body>
               </table>

@@ -154,7 +154,11 @@
                             <!-- General Form Elements -->
                             @php
                                 $motorik_kasar = $data->where('aspek_perkembangan_id', 1);
-                                $total_motorik_kasar = min($motorik_kasar->pluck('penilaian.0.skor')->sum(), 100);
+                                if($motorik_kasar->isEmpty()){
+                                    $total_motorik_kasar = 100;
+                                }else{
+                                    $total_motorik_kasar = $motorik_kasar->pluck('penilaian.0.skor')->sum(); 
+                                }
                             @endphp
                             <div class="row mb-3">
                                 <h5>Motorik Kasar</h5>
@@ -216,7 +220,11 @@
                             </div>
                             @php
                                 $motorik_halus = $data->where('aspek_perkembangan_id', 2);
-                                $total_motorik_halus = min($motorik_halus->pluck('penilaian.0.skor')->sum(), 100);
+                                if($motorik_halus->isEmpty()){
+                                    $total_motorik_halus = 100;
+                                }else{
+                                    $total_motorik_halus = $motorik_halus->pluck('penilaian.0.skor')->sum(); 
+                                }
                             @endphp
                             <div class="row mb-3">
                                 <h5>Motorik Halus</h5>
@@ -277,7 +285,11 @@
 
                             @php
                                 $bicara_dan_bahasa = $data->where('aspek_perkembangan_id', 3);
-                                $total_bicara_dan_bahasa = min($bicara_dan_bahasa->pluck('penilaian.0.skor')->sum(), 100);
+                                if($bicara_dan_bahasa->isEmpty()){
+                                    $total_bicara_dan_bahasa = 100;
+                                }else{
+                                    $total_bicara_dan_bahasa = $bicara_dan_bahasa->pluck('penilaian.0.skor')->sum(); 
+                                }
                             @endphp
                             <div class="row mb-3">
                                 <h5>Bicara dan Bahasa</h5>
@@ -339,7 +351,11 @@
 
                             @php
                                 $sosial_dan_kemandirian = $data->where('aspek_perkembangan_id', 4);
-                                $total_sosial_dan_kemandirian = min($sosial_dan_kemandirian->pluck('penilaian.0.skor')->sum(), 100);
+                                if($sosial_dan_kemandirian->isEmpty()){
+                                    $total_sosial_dan_kemandirian = 100;
+                                }else{
+                                    $total_sosial_dan_kemandirian = $sosial_dan_kemandirian->pluck('penilaian.0.skor')->sum(); 
+                                }
                             @endphp
                             <div class="row mb-3">
                                 <h5>Sosial dan Kemandirian</h5>

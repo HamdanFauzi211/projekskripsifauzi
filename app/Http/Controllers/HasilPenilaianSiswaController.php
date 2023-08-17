@@ -14,8 +14,17 @@ class HasilPenilaianSiswaController extends Controller
         return view('guru.hasilpenilaiansiswa',['nilaiinterpretasiakhir'=>$data]);
     }
 
-    function showadmin() {
-        $data=NilaiInterpretasiAkhir::with('interpretasiakhir')->get();
-        return view('admin.hasilpenilaiansiswa',['nilaiinterpretasiakhir'=>$data]);
+    // function showadmin() {
+    //     $data=NilaiInterpretasiAkhir::with('interpretasiakhir')->get();
+    //     return view('admin.hasilpenilaiansiswa',['nilaiinterpretasiakhir'=>$data]);
+    // }
+
+    public function showhasilkeseluruhanadmin()
+    {
+        // Ambil data dari model NilaiInterpretasiAkhir
+        $nilaiinterpretasiakhir = NilaiInterpretasiAkhir::all();
+
+        // Tampilkan halaman dengan data yang diperlukan
+        return view('admin.hasilpenilaiansiswa', compact('nilaiinterpretasiakhir'));
     }
 }

@@ -15,6 +15,7 @@ use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\KonsultasiController;
 use App\Http\Controllers\OrangTuaController;
+use App\Http\Controllers\PDFController;
 
 
 // use Illuminate\Support\Facades\Auth;
@@ -57,6 +58,8 @@ Route::middleware(['auth', 'Guru'])->group(function () {
     Route::post('guru/penilaian/screening/langkah2',[PenilaianController::class, 'storeLangkah2'])->name('penilaian.screening.langkah2.store');
     Route::get('guru/penilaian/screening/hasil/{jadwal_penilaian_id}/{siswa_id}', [PenilaianController::class, 'hasilpenilaian'])->name('penilaian.screening.hasil.index');
     Route::get('guru/penilaian/screening/hasil/kesimpulan/{jadwal_penilaian_id}/{siswa_id}', [PenilaianController::class, 'hasilPenilaianAkhir'])->name('penilaian.screening.hasil.kesimpulan.index');
+    Route::get('guru/siswa/{siswa_id}/penilaian', [PenilaianController::class, 'showSiswaPenilaian'])->name('showguru-siswa-penilaian');
+
 });
 
 
@@ -70,7 +73,19 @@ Route::middleware(['auth', 'Admin'])->group(function () {
     Route::get('/admin/datauser',[AdminController::class, 'user'])->name('account.user');
     Route::resource('admin/siswa', SiswaController::class);
     Route::resource('admin/jadwalpenilaian', AdminController::class);
-    Route::get('admin/hasilpenilaiansiswa',[HasilPenilaianSiswaController::class, 'showadmin']);
+    // Route::get('admin/hasilpenilaiansiswa',[HasilPenilaianSiswaController::class, 'showadmin']);
+    Route::get('admin/hasilpenilaiansiswa', [HasilPenilaianSiswaController::class, 'showhasilkeseluruhanadmin'])->name('showhasilkeseluruhanadmin');
+    // Route::get('admin/siswa/{siswa_id}/penilaian', [PenilaianController::class, 'showSiswaPenilaianAdmin'])->name('show-siswa-penilaian');
+    Route::get('admin/siswapenilaian/{siswa_id}/{hari_dipilih}', [PenilaianController::class, 'showSiswaPenilaianAdmin'])->name('showSiswaPenilaianAdmin');
+    Route::get('admin/grafik', [SiswaController::class, 'showgrafikadmin']);
+    Route::get('/admin/hasilgrafikanak/{siswa_id}', [AdminController::class, 'showadminhasilgrafik'])->name('showadmin-hasilgrafik');
+    Route::get('/admin/json_grafik', [AdminController::class, 'grafik_anak'])->name('grafik_anak');
+    Route::get('/admin/grafik_total', [AdminController::class, 'grafikTotal'])->name('grafikTotal');
+    Route::get('/admin/contohchart', [AdminController::class, 'contohchartline']);
+    Route::get('admin/download-pdf/hasilpenilaiansiswa/{siswa_id}/{hari_dipilih}', [PDFController::class, 'downloadPDF'])->name('download.pdf');
+
+
+
 });
 
 Route::middleware(['auth', 'Pakar'])->group(function () {

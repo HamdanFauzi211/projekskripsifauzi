@@ -131,7 +131,7 @@
 
           <li>
           <a href="{{url('admin/hasilpenilaiansiswa')}}">
-              <i class="bi bi-circle"></i><span>Hasil Pengukuran</span>
+              <i class="bi bi-circle"></i><span>Hasil penilaian</span>
             </a>
           </li>
 
@@ -147,26 +147,38 @@
   </aside><!-- End Sidebar-->
 
   <main id="main" class="main">
+
     <section class="section">
       <div class="row">
         <div class="col-lg-12">
+          
 
           <div class="card">
             <div class="card-body">
-              <h6 class="card-title text-center">Halaman Data Aspek Perkembangan</h6>
-              <!-- Table with stripped rows -->
+              <h5 class="card-title text-center" >Halaman Hasil Pengukuran Tumbuh Kembang Anak</h5>
+              <h5 class="card-title text-center" >{{ $penilaian->first()->siswa->nama }}</h5>
+              <a href="{{ route('download.pdf', ['siswa_id' => $penilaian->first()->siswa_id, 'hari_dipilih' => $hari]) }}" class="btn btn-primary">Unduh sebagai PDF</a>
+  
               <table class="table datatable">
                 <thead>
                   <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">Aspek Perkembangan</th>
+                    <!-- <th scope="col">ID</th> -->
+                    <th scope="col">Tanggal Pengukuran</th>
+                    <th scope="col">Hari Pengukuran</th>
+                    <th scope="col">Item Perintah</th>
+                    <th scope="col">Skor</th>
+                    <th scope="col">Predikat</th>
                   </tr>
-                  @foreach ($aspekperkembangan as $a)
+                  @foreach ($penilaian as $nilai)                  
                 </thead>
                 <body>
                   <tr>
-                    <td>{{ $a->id}}</td>
-                    <td>{{ $a->nama_aspek}}</td>
+                  <td>{{$nilai -> jadwalpenilaian->tanggal }}</td>
+                  <td>{{$nilai -> jadwalpenilaian->nama_jadwal }}</td>
+                  <td>{{$nilai -> itemperintah->perintah }}</td>
+                  <td>{{ number_format((float)$nilai -> skor, 2, '.', '') }}</td>
+                  <td>{{$nilai -> nilai }}</td>
+                  </tr>
                  @endforeach
                 </body>
               </table>
@@ -181,17 +193,16 @@
 
   </main><!-- End #main -->
 
-  <!-- ======= Footer ======= -->
+     <!-- ======= Footer ======= -->
   <footer id="footer" class="footer">
     <div class="copyright">
-      &copy; Copyright <strong><span>NiceAdmin</span></strong>. All Rights Reserved
+    <strong><span>Copyright 2023 All Right Reserved By PAUD LITTLE CARE YOGYAKARTA</span></strong>
     </div>
     <div class="credits">
       <!-- All the links in the footer should remain intact. -->
       <!-- You can delete the links only if you purchased the pro version. -->
       <!-- Licensing information: https://bootstrapmade.com/license/ -->
       <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ -->
-      Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
     </div>
   </footer><!-- End Footer -->
 

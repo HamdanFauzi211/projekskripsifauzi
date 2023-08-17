@@ -10,7 +10,7 @@ use App\Models\Siswa;
 use App\Models\Penilaian;
 use App\Models\NilaiInterpretasiHasil;
 use App\Models\NilaiInterpretasiAkhir;
-
+use DB;
 
 class PenilaianController extends Controller
 {
@@ -43,12 +43,20 @@ class PenilaianController extends Controller
     
     public function indexLangkah2($jadwal_penilaian_id, $siswa_id, $kategori_umur_id)
     {
-        $data = AspekPerkembangan::with(['itemperintah' => function ($query) use ($kategori_umur_id) {
+        $dinilai = Penilaian::where('siswa_id', $siswa_id)
+            ->where('jadwal_penilaian_id', $jadwal_penilaian_id)
+            ->exists();
+
+        if($dinilai){
+            return view('guru.penilaian.screaningtest.langkah2')->with('alert', 'Penilaian telah dilakukan');
+        }else{
+            $data = AspekPerkembangan::with(['itemperintah' => function ($query) use ($kategori_umur_id) {
                 $query->where('kategori_umur_id', $kategori_umur_id);
             }])
-            ->get();
-
-        return view('guru.penilaian.screaningtest.langkah2', compact('data', 'siswa_id', 'kategori_umur_id', 'jadwal_penilaian_id'));
+            ->get(); 
+            
+            return view('guru.penilaian.screaningtest.langkah2', compact('data', 'siswa_id', 'kategori_umur_id', 'jadwal_penilaian_id'));
+        }    
     }
 
     public function storeLangkah2(Request $request)
@@ -66,12 +74,12 @@ class PenilaianController extends Controller
         $motorik_halus = $request->get('motorik_halus');
         $bicara_dan_bahasa = $request->get('bicara_dan_bahasa');
         $sosial_dan_kemandirian = $request->get('sosial_dan_kemandirian');
-
+        
         foreach($data as $i => $aspek_perkembangan){
 
             $total = 100;
             $jumlahItemPerintah = count($aspek_perkembangan->itemperintah);
-            $nilai = $jumlahItemPerintah !== 0 ? $total / $jumlahItemPerintah : 0;
+            $skor = $jumlahItemPerintah > 0 ? $total / $jumlahItemPerintah : 100;
 
             $aspekPerkembangan = [];
             switch ($i) {
@@ -84,15 +92,33 @@ class PenilaianController extends Controller
                 case 2:
                     $aspekPerkembangan = $bicara_dan_bahasa;
                     break;
-                default:
+                case 3:
                     $aspekPerkembangan = $sosial_dan_kemandirian;
                     break;
-            } 
+                default:
+                    break;
+            }
 
-            foreach($aspek_perkembangan->itemperintah as $j => $item_perintah){               
+            foreach($aspek_perkembangan->itemperintah as $j => $item_perintah){ 
+                $nilai_akhir = "";
+                $skor_akhir = 0;
+
+                if($aspekPerkembangan[$j] == "lulus"){
+                    $nilai_akhir = "Lulus";
+                    $skor_akhir = $skor;
+                }else{
+                    if($aspekPerkembangan[$j] == "tidak_lulus"){
+                        $nilai_akhir = "Tidak Lulus";
+                    }else{
+                        $nilai_akhir = "Menolak";
+                    }
+
+                    $skor_akhir = 0;
+                }
+
                 Penilaian::create([
-                    'nilai' => ($aspekPerkembangan[$j] == "lulus") ? "Lulus" : (($aspekPerkembangan[$j] == "tidak_lulus") ? "Tidak Lulus" : "Menolak"),
-                    'skor' => ($aspekPerkembangan[$j] == "lulus") ? $nilai : "0",
+                    'nilai' => $nilai_akhir,
+                    'skor' => $skor_akhir,
                     'item_perintah_id' => $item_perintah->id,
                     'siswa_id' => $siswa_id,
                     'jadwal_penilaian_id' => $jadwal_penilaian_id
@@ -134,7 +160,7 @@ class PenilaianController extends Controller
                 'jadwal_penilaian_id' => $jadwal_penilaian_id,
                 'aspek_perkembangan_id' => 4
             ]
-            ];
+        ];
 
         foreach ($store_data as $record) {
             NilaiInterpretasiHasil::create($record);
@@ -144,9 +170,9 @@ class PenilaianController extends Controller
 
     public function hasilpenilaian($jadwal_penilaian_id, $siswa_id)
     {
-        $data = ItemPerintah::whereHas('penilaian', function ($query) use ($jadwal_penilaian_id, $siswa_id) {
+        $data = ItemPerintah::withWhereHas('penilaian', function ($query) use ($jadwal_penilaian_id, $siswa_id) {
             $query->where('jadwal_penilaian_id', $jadwal_penilaian_id)
-                ->where('siswa_id', $siswa_id);
+                  ->where('siswa_id', $siswa_id);
         })
         ->get();
 
@@ -156,11 +182,10 @@ class PenilaianController extends Controller
     }
 
     public function storeHasilPenilaianAkhir($siswa_id, $jadwal_penilaian_id){
-        $data = NilaiInterpretasiHasil::with('interpretasihasil')
-            ->where('siswa_id', $siswa_id)
+        $data = NilaiInterpretasiHasil::where('siswa_id', $siswa_id)
             ->where('jadwal_penilaian_id', $jadwal_penilaian_id)
             ->get()
-            ->pluck('interpretasihasil.id')
+            ->pluck('interpretasi_hasil_id')
             ->toArray();
         
         $jumlah_hasil = array_count_values($data);
@@ -200,5 +225,40 @@ class PenilaianController extends Controller
         ->first();
 
         return view('guru.penilaian.screaningtest.kesimpulan', compact('kesimpulan'));
+    }
+
+    public function showSiswaPenilaian($siswa_id)
+    {
+        $penilaian = Penilaian::where('siswa_id', $siswa_id)->get();
+        return view('guru.hasildetail', compact('penilaian'));
+    }
+
+    // public function showSiswaPenilaianAdmin($siswa_id)
+    // {
+    //     $penilaian = Penilaian::where('siswa_id', $siswa_id)->get();
+    //     return view('admin.hasildetail', compact('penilaian'));
+    // }
+
+    public function showSiswaPenilaianAdmin($siswa_id, $hari_dipilih)
+    {
+        // Ambil data dari model Penilaian berdasarkan siswa_id dan hari_dipilih
+        $penilaian = Penilaian::whereHas('jadwalpenilaian', function ($query) use ($hari_dipilih) {
+            $query->where('nama_jadwal', $hari_dipilih);
+        })->where('siswa_id', $siswa_id)->get();
+           // Tambahkan informasi interpretasi_akhir_id
+        $penilaian->load('interpretasi_akhir');
+
+        $hari = DB::table('jadwal_penilaians')->where('id',$penilaian->first()->jadwal_penilaian_id)->first()->nama_jadwal;
+
+        // Tampilkan halaman dengan data yang diperlukan
+        return view('admin.hasildetail', compact('penilaian','hari'));
+    }
+
+    public function hasilgrafikadmin()
+    {
+        // Data dari database (sesuaikan dengan data aktual)
+        $nilaiinterpretasiakhir = InterpretasiAkhir::with('siswa')->get();
+
+        return view('guru.hasilgrafik', compact('nilaiinterpretasiakhir'));
     }
 }

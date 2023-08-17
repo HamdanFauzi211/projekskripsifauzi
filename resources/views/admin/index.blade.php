@@ -135,6 +135,12 @@
             </a>
           </li>
 
+          <li>
+          <a href="{{url('admin/grafik')}}">
+              <i class="bi bi-circle"></i><span>Grafik</span>
+            </a>
+          </li>
+
           <!-- <li>
           <a href="{{url('admin/register')}}">
               <i class="bi bi-circle"></i><span>Register Orangtua</span>

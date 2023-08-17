@@ -27,4 +27,18 @@ class Penilaian extends Model
     {
         return $this->belongsTo(ItemPerintah::class, 'item_perintah_id', 'id');
     }
+
+    public function siswa()
+    {
+        return $this->belongsTo(Siswa::class, 'siswa_id');
+    }
+
+    public function jadwalpenilaian()
+    {
+        return $this->belongsTo(jadwalpenilaian::class, 'jadwal_penilaian_id', 'id');
+    }
+    public function interpretasi_akhir()
+    {
+        return $this->belongsTo(InterpretasiAkhir::class, 'interpretasi_akhir_id');
+    }
 }

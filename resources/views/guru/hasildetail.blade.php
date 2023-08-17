@@ -94,50 +94,44 @@
         </a>
         <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="{{url('admin/kategoriumur')}}">
+            <a href="{{url('guru/kategoriumur')}}">
               <i class="bi bi-circle"></i><span>Data Kategori Umur</span>
             </a>
           </li>
 
           <li>
-          <a href="{{url('admin/aspekperkembangan')}}">
+          <a href="{{url('guru/aspekperkembangan')}}">
               <i class="bi bi-circle"></i><span>Data Aspek Perkembangan</span>
             </a>
           </li>
 
           <li>
-          <a href="{{url('/admin/itemperintah')}}">
+          <a href="{{url('/guru/itemperintah')}}">
               <i class="bi bi-circle"></i><span>Data Item Perintah</span>
             </a>
           </li>
-          </ul>
+
+          <li>
+          <a href="{{url('/guru/datasiswa')}}">
+              <i class="bi bi-circle"></i><span>Data Anak</span>
+            </a>
+          </li>
+        </ul>
 
         <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-layout-text-window-reverse"></i><span>Tambah Data</span><i class="bi bi-chevron-down ms-auto"></i>
+          <i class="bi bi-layout-text-window-reverse"></i><span>Jadwal Pengukuran</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
 
           <li>
-          <a href="{{url('admin/jadwalpenilaian')}}">
-              <i class="bi bi-circle"></i><span>Jadwal Pengukuran</span>
+          <a href="{{url('guru/jadwalpenilaian')}}">
+              <i class="bi bi-circle"></i><span>Pengukuran</span>
             </a>
           </li>
 
           <li>
-          <a href="{{url('admin/siswa')}}">
-              <i class="bi bi-circle"></i><span>Siswa</span>
-            </a>
-          </li>
-
-          <li>
-          <a href="{{url('admin/hasilpenilaiansiswa')}}">
+          <a href="{{url('guru/hasilpenilaiansiswa')}}">
               <i class="bi bi-circle"></i><span>Hasil Pengukuran</span>
-            </a>
-          </li>
-
-          <li>
-          <a href="{{url('admin/grafik')}}">
-              <i class="bi bi-circle"></i><span>Grafik</span>
             </a>
           </li>
 
@@ -147,26 +141,36 @@
   </aside><!-- End Sidebar-->
 
   <main id="main" class="main">
+
     <section class="section">
       <div class="row">
         <div class="col-lg-12">
 
           <div class="card">
             <div class="card-body">
-              <h6 class="card-title text-center">Halaman Data Aspek Perkembangan</h6>
-              <!-- Table with stripped rows -->
+              <h5 class="card-title text-center" >Halaman Hasil Pengukuran Tumbuh Kembang Anak</h5>
+              <h5 class="card-title text-center" >{{ $penilaian->first()->siswa->nama }}</h5>
+     <!-- Table with stripped rows -->
               <table class="table datatable">
                 <thead>
                   <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">Aspek Perkembangan</th>
+                    <!-- <th scope="col">ID</th> -->
+                    <th scope="col">Nilai</th>
+                    <th scope="col">Skor</th>
+                    <th scope="col">Item Perintah</th>
+                    <th scope="col">Hari Pengukuran</th>
+                    <th scope="col">Tanggal Pengukuran</th>
                   </tr>
-                  @foreach ($aspekperkembangan as $a)
+                  @foreach ($penilaian as $nilai)
                 </thead>
                 <body>
                   <tr>
-                    <td>{{ $a->id}}</td>
-                    <td>{{ $a->nama_aspek}}</td>
+                    <td>{{$nilai -> nilai }}</td>
+                    <td>{{ number_format((float)$nilai -> skor, 2, '.', '') }}</td>
+                    <td>{{$nilai -> itemperintah->perintah }}</td>
+                    <td>{{$nilai -> jadwalpenilaian->nama_jadwal }}</td>
+                    <td>{{$nilai -> jadwalpenilaian->tanggal }}</td>
+        </tr>
                  @endforeach
                 </body>
               </table>
@@ -181,17 +185,16 @@
 
   </main><!-- End #main -->
 
-  <!-- ======= Footer ======= -->
+     <!-- ======= Footer ======= -->
   <footer id="footer" class="footer">
     <div class="copyright">
-      &copy; Copyright <strong><span>NiceAdmin</span></strong>. All Rights Reserved
+    <strong><span>Copyright 2023 All Right Reserved By PAUD LITTLE CARE YOGYAKARTA</span></strong>
     </div>
     <div class="credits">
       <!-- All the links in the footer should remain intact. -->
       <!-- You can delete the links only if you purchased the pro version. -->
       <!-- Licensing information: https://bootstrapmade.com/license/ -->
       <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ -->
-      Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
     </div>
   </footer><!-- End Footer -->
 

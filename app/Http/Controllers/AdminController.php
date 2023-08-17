@@ -6,6 +6,9 @@ use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use App\Models\JadwalPenilaian;
 use App\Models\Siswa;
+use Illuminate\Support\Facades\DB;
+use App\Models\Chart;
+use App\Models\NilaiInterpretasiAkhir;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -86,5 +89,111 @@ class AdminController extends Controller
         return redirect()->back();
     }
 
+    // public function showadminhasilgrafik($siswa_id)
+    // {
+    //     // Lakukan query untuk mendapatkan data interpretasi akhir sesuai siswa_id
+    //     $dataInterpretasiAkhir = NilaiInterpretasiAkhir::where('siswa_id', $siswa_id)->get();
+
+    //     // Kirim data interpretasi akhir ke halaman grafik anak
+    //     return view('admin.hasilgrafik', ['dataInterpretasiAkhir' => $dataInterpretasiAkhir]);
+    // }
+
+    public function showadminhasilgrafik($siswa_id)
+    {
     
+            $InterpretasiAkhir = DB::table('nilai_interpretasi_akhirs')
+                ->join('interpretasi_akhirs', 'nilai_interpretasi_akhirs.interpretasi_akhir_id', '=', 'interpretasi_akhirs.id')
+                ->join('siswas', 'nilai_interpretasi_akhirs.siswa_id', '=', 'siswas.id')
+                ->select('nilai_interpretasi_akhirs.interpretasi_akhir_id', DB::raw('count(*) as total'))
+                ->groupBy('nilai_interpretasi_akhirs.interpretasi_akhir_id')
+                ->pluck('total')
+                ->all();
+    
+            $InterpretasiAkhirColours = [];
+            
+            for ($i = 0; $i < count($InterpretasiAkhir); $i++) {
+                $r = $randomNumber = floor(rand(0, 254));
+                $g = $randomNumber = floor(rand(0, 254));
+                $b = $randomNumber = floor(rand(0, 254));
+                $InterpretasiAkhirColours[] = "rgb(".$r.",".$g.",".$b.")";
+            }
+    
+            // Membuat Data Chart untuk Damage
+            $InterpretasiAkhirChart = new Chart;
+            $InterpretasiAkhirChart->labels = array_keys($InterpretasiAkhir);
+            $InterpretasiAkhirChart->dataset = array_values($InterpretasiAkhir);
+            $InterpretasiAkhirChart->colours = $InterpretasiAkhirColours;
+            $InterpretasiAkhirChart->title = "Total Statistik Interpretasi";
+    
+            $getAllChart = [
+                'InterpretasiAkhirChart' => $InterpretasiAkhirChart, 
+            ];
+    
+            return view('admin.hasilgrafik', compact(
+                'getAllChart'
+            ));
+        }
+        
+        public function grafikTotal()
+    {
+    
+            $InterpretasiAkhir = DB::table('nilai_interpretasi_akhirs')
+                ->join('interpretasi_akhirs', 'nilai_interpretasi_akhirs.interpretasi_akhir_id', '=', 'interpretasi_akhirs.id')
+                ->join('siswas', 'nilai_interpretasi_akhirs.siswa_id', '=', 'siswas.id')
+                ->select('nilai_interpretasi_akhirs.interpretasi_akhir_id', DB::raw('count(*) as total'))
+                ->groupBy('nilai_interpretasi_akhirs.interpretasi_akhir_id')
+                ->pluck('total')
+                ->all();
+    
+            $InterpretasiAkhirColours = [];
+            
+            for ($i = 0; $i < count($InterpretasiAkhir); $i++) {
+                $r = $randomNumber = floor(rand(0, 254));
+                $g = $randomNumber = floor(rand(0, 254));
+                $b = $randomNumber = floor(rand(0, 254));
+                $InterpretasiAkhirColours[] = "rgb(".$r.",".$g.",".$b.")";
+            }
+    
+            // Membuat Data Chart untuk Damage
+            $InterpretasiAkhirChart = new Chart;
+            $InterpretasiAkhirChart->labels = array_keys($InterpretasiAkhir);
+            $InterpretasiAkhirChart->dataset = array_values($InterpretasiAkhir);
+            $InterpretasiAkhirChart->colours = $InterpretasiAkhirColours;
+            $InterpretasiAkhirChart->title = "Total Statistik Interpretasi";
+    
+            $getAllChart = [
+                'InterpretasiAkhirChart' => $InterpretasiAkhirChart, 
+            ];
+    
+            return view('admin.grafiktotal', compact(
+                'getAllChart'
+            ));
+        }
+
+        public function grafik_anak(){
+            $data = DB::table('nilai_interpretasi_akhirs as a')
+                    ->select('a.*', 'b.nama', 'c.kesimpulan', 'd.nama_jadwal', 'd.tanggal as tanggal_jadwal')
+                    ->leftJoin('siswas as b', 'a.siswa_id', '=', 'b.id')
+                    ->leftJoin('interpretasi_akhirs as c', 'a.interpretasi_akhir_id', '=', 'c.id')
+                    ->leftJoin('jadwal_penilaians as d', 'a.jadwal_penilaian_id', '=', 'd.id')
+                    ->get();
+            echo json_encode($data);
+        }
+
+        public function contohchartline()
+    {
+        // Data dummy untuk contoh grafik garis
+        $data = [
+            [
+                'label' => 'Data 1',
+                'data' => [10, 15, 20, 12, 8, 18],
+            ],
+            [
+                'label' => 'Data 2',
+                'data' => [5, 12, 8, 10, 15, 9],
+            ],
+        ];
+
+        return view('admin.contohchartline')->with('data', $data);
+    }
 }

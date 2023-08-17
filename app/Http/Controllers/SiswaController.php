@@ -120,4 +120,11 @@ class SiswaController extends Controller
 
         return redirect()->back();
     }
+
+    public function showgrafikadmin() {
+        {
+                $data=Siswa::all();
+                return view('admin.grafik',['siswa'=>$data]);
+            }
+        }
 }

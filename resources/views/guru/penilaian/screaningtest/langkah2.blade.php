@@ -149,62 +149,67 @@
           <div class="card">
             <div class="card-body">
               <h5 class="card-title text-center" >Halaman Pengukuran Tumbuh Kembang Anak</h5>
+              @if(!empty($alert))
+                <div class="alert alert-warning"> {{ $alert }}</div>
+              @endif
 
-              <!-- General Form Elements -->
-              <form action="{{route('penilaian.screening.langkah2.store')}}" method="POST">
-                @csrf
-                <input type="hidden" name="aspek_perkembangan" value={{$data}}>
-                <input type="hidden" name="kategori_umur_id" value="{{$kategori_umur_id}}">
-                <input type="hidden" name="siswa_id" value="{{$siswa_id}}">
-                <input type="hidden" name="jadwal_penilaian_id" value="{{$jadwal_penilaian_id}}">
-              <h5 >Motorik Kasar</h5>
-                <div class="row mb-3">
-                @foreach($data->get(0)->itemperintah as $i)
-                  <label for="inputEmail" class="col-form-label">{{$i->perintah}}</label>
-                  <select name="motorik_kasar[]" class="form-control bg-light" style="color:black;">
+              @isset($data)
+                <!-- General Form Elements -->
+                <form action="{{route('penilaian.screening.langkah2.store')}}" method="POST">
+                  @csrf
+                  <input type="hidden" name="aspek_perkembangan" value={{$data}}>
+                  <input type="hidden" name="kategori_umur_id" value="{{$kategori_umur_id}}">
+                  <input type="hidden" name="siswa_id" value="{{$siswa_id}}">
+                  <input type="hidden" name="jadwal_penilaian_id" value="{{$jadwal_penilaian_id}}">
+                <h5 >Motorik Kasar</h5>
+                  <div class="row mb-3">
+                  @foreach($data->get(0)->itemperintah as $i)
+                    <label for="inputEmail" class="col-form-label">{{$i->perintah}}</label>
+                    <select name="motorik_kasar[]" class="form-control bg-light" style="color:black;">
+                      <option value="lulus">Lulus</option>
+                      <option value="tidak_lulus">Tidak Lulus</option>
+                      <option value="menolak">Menolak</option>
+                  </select>
+                  @endforeach
+                  </div>
+                  <h5 >Motorik Halus</h5>
+                  <div class="row mb-3">
+                  @foreach($data->get(1)->itemperintah as $i)
+                    <label for="inputEmail" class="col-form-label">{{$i->perintah}}</label>
+                    <select name="motorik_halus[]" class="form-control bg-light" style="color:black;">
+                      <option value="lulus">Lulus</option>
+                      <option value="tidak_lulus">Tidak Lulus</option>
+                      <option value="menolak">Menolak</option>
+                  </select>
+                  @endforeach
+                  </div>
+                  <h5 >Bicara dan Bahasa</h5>
+                  <div class="row mb-3">
+                  @foreach($data->get(2)->itemperintah as $i)
+                    <label for="inputEmail" class="col-form-label">{{$i->perintah}}</label>
+                    <select name="bicara_dan_bahasa[]" class="form-control bg-light" style="color:black;">
                     <option value="lulus">Lulus</option>
-                    <option value="tidak_lulus">Tidak Lulus</option>
-                    <option value="menolak">Menolak</option>
-                </select>
-                @endforeach
-                </div>
-                <h5 >Motorik Halus</h5>
-                <div class="row mb-3">
-                @foreach($data->get(1)->itemperintah as $i)
-                  <label for="inputEmail" class="col-form-label">{{$i->perintah}}</label>
-                  <select name="motorik_halus[]" class="form-control bg-light" style="color:black;">
+                      <option value="tidak_lulus">Tidak Lulus</option>
+                      <option value="menolak">Menolak</option>
+                  </select>
+                  @endforeach
+                  </div>
+                  <h5 >Sosial dan Kemandirian</h5>
+                  <div class="row mb-3">
+                  @foreach($data->get(3)->itemperintah as $i)
+                    <label for="inputEmail" class="col-form-label">{{$i->perintah}}</label>
+                    <select name="sosial_dan_kemandirian[]" class="form-control bg-light" style="color:black;">
                     <option value="lulus">Lulus</option>
-                    <option value="tidak_lulus">Tidak Lulus</option>
-                    <option value="menolak">Menolak</option>
-                </select>
-                @endforeach
-                </div>
-                <h5 >Bicara dan Bahasa</h5>
-                <div class="row mb-3">
-                @foreach($data->get(2)->itemperintah as $i)
-                  <label for="inputEmail" class="col-form-label">{{$i->perintah}}</label>
-                  <select name="bicara_dan_bahasa[]" class="form-control bg-light" style="color:black;">
-                  <option value="lulus">Lulus</option>
-                    <option value="tidak_lulus">Tidak Lulus</option>
-                    <option value="menolak">Menolak</option>
-                </select>
-                @endforeach
-                </div>
-                <h5 >Sosial dan Kemandirian</h5>
-                <div class="row mb-3">
-                @foreach($data->get(3)->itemperintah as $i)
-                  <label for="inputEmail" class="col-form-label">{{$i->perintah}}</label>
-                  <select name="sosial_dan_kemandirian[]" class="form-control bg-light" style="color:black;">
-                  <option value="lulus">Lulus</option>
-                    <option value="tidak_lulus">Tidak Lulus</option>
-                    <option value="menolak">Menolak</option>
-                </select>
-                @endforeach
-                </div>
-                </div>
-                <button type="submit" class="btn btn-primary">Hitung</button>
+                      <option value="tidak_lulus">Tidak Lulus</option>
+                      <option value="menolak">Menolak</option>
+                  </select>
+                  @endforeach
+                  </div>
+                  </div>
+                  <button type="submit" class="btn btn-primary">Hitung</button>
 
-              </form><!-- End General Form Elements -->
+                </form><!-- End General Form Elements -->
+              @endisset
 
   </main><!-- End #main -->
 
@@ -236,6 +241,12 @@
 
   <!-- Template Main JS File -->
   <script src="/assets/js/main.js"></script>
+
+  <script>
+    @if (session('errorMsg'))
+        alert({{session('errorMsg')}})
+    @endif
+  </script>
 
 </body>
 
